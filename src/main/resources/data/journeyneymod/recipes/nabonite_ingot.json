@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "nabonite_ingot",
+    "pattern": [
+      " # ",
+      "#X#",
+      " # "
+    ],
+    "key": {
+      "#": {
+        "item": "journeyneymod:nabonite_dust"
+      },
+      "X": {
+        "item": "minecraft:copper_ingot"
+      }
+    },
+    "result": {
+      "item": "journeyneymod:nabonite_ingot"
+    }
+  }

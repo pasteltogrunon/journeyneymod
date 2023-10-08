@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "lit=false": {
+            "model":"journeyneymod:block/nabonizer"
+        },
+        "lit=true": {
+            "model":"journeyneymod:block/nabonizer_lit"
+        }
+    }
+}

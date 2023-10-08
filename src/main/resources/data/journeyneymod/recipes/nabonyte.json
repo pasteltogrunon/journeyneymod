@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "nabonite_ingot",
+    "pattern": [
+      "S#S",
+      "#X#",
+      "S#S"
+    ],
+    "key": {
+      "#": {
+        "item": "journeyneymod:nabonite_ingot"
+      },
+      "X": {
+        "item": "minecraft:diamond_pickaxe"
+      },
+      "S": {
+        "item": "minecraft:copper_ingot"
+      }
+    },
+    "result": {
+      "item": "journeyneymod:nabonyte"
+    }
+  }

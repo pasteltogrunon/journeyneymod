@@ -1,0 +1,23 @@
+{
+    "item.journeyneymod.nabonite_dust":"Nabonite Dust",
+    "item.journeyneymod.nabonite_ingot":"Nabonite Ingot",
+    "item.journeyneymod.edible_nabe":"Edible Nabe",
+    "item.journeyneymod.nabonyte":"Nabonyte",
+    "item.journeyneymod.nabonized_gunpowder":"Nabonized Gunpowder",
+
+    "item.journeyneymod.nabonite_sword":"Nabonite Sword",
+    "item.journeyneymod.nabonite_shovel":"Nabonite Shovel",
+    "item.journeyneymod.nabonite_pickaxe":"Nabonite Pickaxe",
+    "item.journeyneymod.nabonite_axe":"Nabonite Axe",
+    "item.journeyneymod.nabonite_hoe":"Nabonite Hoe",
+
+    "block.journeyneymod.nabonite_ore":"Nabonite Ore",
+    "block.journeyneymod.deepslate_nabonite_ore":"Deepslate Nabonite Ore",
+    "block.journeyneymod.nabonizer":"Nabonizer",
+    "block.journeyneymod.nabonytic_generator":"Nabonytic Generator",
+
+    "enchantment.journeyneymod.naboniac":"Naboniac",
+    "enchantment.journeyneymod.nabonytic_rest":"Nabonytic Rest",
+
+    "creativetab.one_tab":"One tab"
+}

@@ -1,0 +1,18 @@
+{
+    "type": "journeyneymod:nabonizing",
+    "ingredients":[
+        { 
+            "item":"journeyneymod:nabonite_ingot"
+        },
+        { 
+            "item":"journeyneymod:nabonite_dust"
+        },
+        { 
+            "item":"minecraft:golden_hoe"
+        }
+    ],
+    "result": {
+      "item": "journeyneymod:nabonite_hoe"
+    },
+    "processing_time": 300
+  }

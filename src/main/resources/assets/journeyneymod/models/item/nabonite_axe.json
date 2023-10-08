@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/handheld",
+    "textures": {
+      "layer0": "journeyneymod:item/nabonite_axe"
+    }
+  }

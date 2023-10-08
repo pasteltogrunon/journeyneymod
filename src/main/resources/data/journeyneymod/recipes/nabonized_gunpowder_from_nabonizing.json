@@ -1,0 +1,18 @@
+{
+    "type": "journeyneymod:nabonizing",
+    "ingredients":[
+        { 
+            "item":"journeyneymod:nabonite_dust"
+        },
+        { 
+            "item":"journeyneymod:nabonite_dust"
+        },
+        { 
+            "item":"minecraft:gunpowder"
+        }
+    ],
+    "result": {
+      "item": "journeyneymod:nabonized_gunpowder"
+    },
+    "processing_time": 50
+  }
