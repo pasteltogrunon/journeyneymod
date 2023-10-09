@@ -4,6 +4,8 @@
     "item.journeyneymod.edible_nabe":"Edible Nabe",
     "item.journeyneymod.nabonyte":"Nabonyte",
     "item.journeyneymod.nabonized_gunpowder":"Nabonized Gunpowder",
+    "item.journeyneymod.tortoisim_spawn_egg":"Tortoisim Spawn Egg",
+    "item.journeyneymod.tortoisim_scute":"Tortoisim Scute",
 
     "item.journeyneymod.nabonite_sword":"Nabonite Sword",
     "item.journeyneymod.nabonite_shovel":"Nabonite Shovel",
@@ -18,6 +20,8 @@
 
     "enchantment.journeyneymod.naboniac":"Naboniac",
     "enchantment.journeyneymod.nabonytic_rest":"Nabonytic Rest",
+
+    "entity.journeyneymod.tortoisim":"Tortoisim",
 
     "creativetab.one_tab":"One tab"
 }

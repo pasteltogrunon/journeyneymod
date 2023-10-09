@@ -42,6 +42,7 @@ public class ModCreativeModeTabs
                 pOutput.accept(ModBlocks.NABONYTIC_GENERATOR.get());
 
                 pOutput.accept(ModItems.TORTOISIM_SPAWN_EGG.get());
+                pOutput.accept(ModItems.TORTOISIM_SCUTE.get());
 
             })
             .build());

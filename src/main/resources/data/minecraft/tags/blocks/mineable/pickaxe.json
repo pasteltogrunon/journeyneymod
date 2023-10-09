@@ -1,5 +1,8 @@
 {
     "values": [
-      "journeyneymod:nabonite_ore"
+      "journeyneymod:nabonite_ore",
+      "journeyneymod:deepslate_nabonite_ore",
+      "journeyneymod:nabonizer",
+      "journeyneymod:nabonytic_generator"
     ]
   }

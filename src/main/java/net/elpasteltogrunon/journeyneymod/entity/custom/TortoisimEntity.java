@@ -12,10 +12,13 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.EatBlockGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -79,13 +82,15 @@ public class TortoisimEntity extends Animal
     {
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
-        this.goalSelector.addGoal(1, new BreedGoal(this, 4));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.1, Ingredient.of(ModItems.EDIBLE_NABE.get()), false));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.5));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 2));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, Ingredient.of(ModItems.EDIBLE_NABE.get()), false));
 
-        this.goalSelector.addGoal(3, new FollowParentGoal(this, 1.1));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
 
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 3));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 3));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 0.8));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
 
@@ -96,7 +101,7 @@ public class TortoisimEntity extends Animal
             .add(Attributes.MOVEMENT_SPEED, 0.13)
             .add(Attributes.KNOCKBACK_RESISTANCE, 0.5)
             .add(Attributes.ARMOR_TOUGHNESS, 0.2)
-            .add(Attributes.FOLLOW_RANGE, 15);
+            .add(Attributes.FOLLOW_RANGE, 30);
     }
 
     @Override

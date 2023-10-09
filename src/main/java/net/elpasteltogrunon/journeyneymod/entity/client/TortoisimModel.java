@@ -60,15 +60,15 @@ public class TortoisimModel<T extends Entity> extends HierarchicalModel<T>
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
-		this.animateWalk(ModAnimationDefinitions.TORTOISIM_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
+		this.animateWalk(ModAnimationDefinitions.TORTOISIM_WALK, limbSwing, limbSwingAmount, 5f, 5f);
 		this.animate(((TortoisimEntity) entity).idleAnimationState, ModAnimationDefinitions.TORTOISIM_IDLE, ageInTicks, 1f);
 	}
 
 	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
-		pNetHeadYaw = Mth.clamp(pNetHeadYaw, -5.0F, 40.0F);
-		pHeadPitch = Mth.clamp(pHeadPitch, -25.0F, 25.0F);
+		pNetHeadYaw = Mth.clamp(pNetHeadYaw, -20.0F, 20.0F);
+		pHeadPitch = Mth.clamp(pHeadPitch, -10.0F, 15.0F);
 
-		this.head.yRot = -pNetHeadYaw * ((float)Math.PI / 180F);
+		this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
 		this.head.xRot = -pHeadPitch * ((float)Math.PI / 180F);
 	}
 
