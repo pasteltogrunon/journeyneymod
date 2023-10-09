@@ -1,7 +1,9 @@
 package net.elpasteltogrunon.journeyneymod.item;
 
 import net.elpasteltogrunon.journeyneymod.JourneyneyMod;
+import net.elpasteltogrunon.journeyneymod.entity.ModEntities;
 import net.elpasteltogrunon.journeyneymod.item.custom.NabonyteItem;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
@@ -9,6 +11,7 @@ import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.SwordItem;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -47,6 +50,9 @@ public class ModItems
 
     public static final RegistryObject<Item> NABONITE_HOE = ITEMS.register("nabonite_hoe", 
         () -> new HoeItem(ModToolTiers.NABONITE, 2, 0f, new Item.Properties()));
+
+    public static final RegistryObject<Item> TORTOISIM_SPAWN_EGG = ITEMS.register("tortoisim_spawn_egg",
+        () -> new ForgeSpawnEggItem(ModEntities.TORTOISIM, 0xd2d4cd, 0x38405c, new Item.Properties()));
 
     public static void register(IEventBus eventBus)
     {

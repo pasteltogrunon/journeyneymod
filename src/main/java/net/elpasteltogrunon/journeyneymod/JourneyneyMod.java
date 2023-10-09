@@ -5,12 +5,15 @@ package net.elpasteltogrunon.journeyneymod;
 import net.elpasteltogrunon.journeyneymod.block.ModBlocks;
 import net.elpasteltogrunon.journeyneymod.block.entity.ModBlockEntities;
 import net.elpasteltogrunon.journeyneymod.enchantment.ModEnchantments;
+import net.elpasteltogrunon.journeyneymod.entity.ModEntities;
+import net.elpasteltogrunon.journeyneymod.entity.client.TortoisimRenderer;
 import net.elpasteltogrunon.journeyneymod.item.ModCreativeModeTabs;
 import net.elpasteltogrunon.journeyneymod.item.ModItems;
 import net.elpasteltogrunon.journeyneymod.recipe.ModRecipes;
 import net.elpasteltogrunon.journeyneymod.screen.NabonizerScreen;
 import net.elpasteltogrunon.journeyneymod.screen.menu.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -43,6 +46,7 @@ public class JourneyneyMod
         ModMenuTypes.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModEnchantments.register(modEventBus);
+        ModEntities.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -94,6 +98,7 @@ public class JourneyneyMod
         public static void onClientSetup(FMLClientSetupEvent event)
         {
                 MenuScreens.register(ModMenuTypes.NABONIZER_MENU.get(), NabonizerScreen::new);
+                EntityRenderers.register(ModEntities.TORTOISIM.get(), TortoisimRenderer::new);
         }
     }
 }
