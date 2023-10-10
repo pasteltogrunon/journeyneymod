@@ -2,7 +2,6 @@ package net.elpasteltogrunon.journeyneymod.block.entity;
 
 import org.jetbrains.annotations.NotNull;
 
-import net.elpasteltogrunon.journeyneymod.JourneyneyMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -13,11 +12,20 @@ public class EnergyBlockEntity extends BlockEntity
 {
     protected int energy = 0;
     protected int maxEnergy = 1000;
-    protected int maxTransfer = 100;
+    private int maxTransfer = 100;
+    public boolean isReceiver;
 
     public EnergyBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) 
     {
         super(blockEntityType, pos, state);
+    }
+
+    public int getMaxTransfer() {
+        return maxTransfer;
+    }
+
+    public void setMaxTransfer(int maxTransfer) {
+        this.maxTransfer = maxTransfer;
     }
 
     public int getEnergy()
@@ -30,14 +38,20 @@ public class EnergyBlockEntity extends BlockEntity
         return this.maxEnergy;
     }
 
-    public void receiveEnergy(int amount)
+    public int receiveEnergy(int amount)
     {
-        this.energy = Math.min(this.energy + amount, this.maxEnergy);
+        int a = Math.min(this.energy + amount, this.maxEnergy);
+        int clampedAmount = a - this.energy;
+        this.energy = a;
+        return clampedAmount;
     }
 
-    public void extractEnergy(int amount)
+    public int extractEnergy(int amount)
     {
-        this.energy = Math.max(this.energy - amount, 0);
+        int a = Math.max(this.energy - amount, 0);
+        int clampedAmount = this.energy - a;
+        this.energy = a;
+        return clampedAmount;
     }
 
 

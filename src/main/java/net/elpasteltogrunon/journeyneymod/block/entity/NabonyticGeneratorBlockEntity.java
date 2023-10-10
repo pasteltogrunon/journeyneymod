@@ -11,6 +11,8 @@ public class NabonyticGeneratorBlockEntity extends EnergyBlockEntity
     public NabonyticGeneratorBlockEntity(BlockPos pos, BlockState state) 
     {
         super(ModBlockEntities.NABONYTIC_GENERATOR.get(), pos, state);
+
+        this.isReceiver = false;
     }
     
 
@@ -21,10 +23,10 @@ public class NabonyticGeneratorBlockEntity extends EnergyBlockEntity
 
         BlockEntity receiverCandidate = level.getBlockEntity(pos.below());
 
-        if(receiverCandidate != null && EnergyBlockEntity.class.isAssignableFrom(receiverCandidate.getClass()))
+        if(receiverCandidate instanceof EnergyBlockEntity)
         {
             EnergyBlockEntity receiver = (EnergyBlockEntity) receiverCandidate;
-            receiver.receiveEnergy(pEntity.maxTransfer);
+            receiver.receiveEnergy(pEntity.getMaxTransfer());
         }
     }
 }
