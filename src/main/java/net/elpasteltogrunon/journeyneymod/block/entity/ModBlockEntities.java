@@ -21,7 +21,10 @@ public class ModBlockEntities
         BLOCK_ENTITIES.register("nabonytic_generator", ()-> BlockEntityType.Builder.of(
             NabonyticGeneratorBlockEntity:: new, ModBlocks.NABONYTIC_GENERATOR.get()).build(null));
 
-    
+    public static final RegistryObject<BlockEntityType<CableBlockEntity>> CABLE = 
+        BLOCK_ENTITIES.register("cable", ()-> BlockEntityType.Builder.of(
+            CableBlockEntity:: new, ModBlocks.CABLE.get()).build(null));
+
     public static void register(IEventBus eventBus)
     {
         BLOCK_ENTITIES.register(eventBus);

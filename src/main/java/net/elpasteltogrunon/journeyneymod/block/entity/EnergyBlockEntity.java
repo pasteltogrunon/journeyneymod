@@ -48,12 +48,22 @@ public class EnergyBlockEntity extends BlockEntity
 
     public int extractEnergy(int amount)
     {
-        int a = Math.max(this.energy - amount, 0);
-        int clampedAmount = this.energy - a;
-        this.energy = a;
+        int clampedAmount = Math.min(this.energy, amount);
+        this.energy -= clampedAmount;
         return clampedAmount;
     }
 
+    public int transferEnergy(int amount, EnergyBlockEntity target)
+    {
+        int transferredEnergy = Math.min(amount, this.getEnergy());
+        return this.extractEnergy(target.receiveEnergy(transferredEnergy));
+    }
+
+    public int suckEnergy(int amount, EnergyBlockEntity target)
+    {
+        int requestedEnergy = Math.min(this.getMaxEnergy()-this.getEnergy(), amount);
+        return this.receiveEnergy(target.extractEnergy(requestedEnergy));
+    }
 
     @Override
     public void load(@NotNull CompoundTag nbt)
