@@ -177,6 +177,15 @@ public class CableBlockEntity extends EnergyBlockEntity
         connections.clear();
     }
 
+    public void newEnergyBlockNear(EnergyBlockEntity energyBlockEntity)
+    {
+        if(!(energyBlockEntity instanceof CableBlockEntity))
+        {
+            if(!master.connectedEnergyBLocks.contains(energyBlockEntity))
+                master.connectedEnergyBLocks.add(energyBlockEntity);
+        }
+    } 
+
     public void sendMasterChatMessage()
     {
         if(master != null)

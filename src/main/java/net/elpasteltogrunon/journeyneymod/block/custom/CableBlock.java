@@ -3,12 +3,14 @@ package net.elpasteltogrunon.journeyneymod.block.custom;
 import javax.annotation.Nullable;
 
 import net.elpasteltogrunon.journeyneymod.block.entity.CableBlockEntity;
+import net.elpasteltogrunon.journeyneymod.block.entity.EnergyBlockEntity;
 import net.elpasteltogrunon.journeyneymod.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -17,6 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.extensions.IForgeBlock;
 
 public class CableBlock extends BaseEntityBlock
 { 
@@ -73,11 +76,11 @@ public class CableBlock extends BaseEntityBlock
     }
 
 	@Override
-	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
-		if (world.getBlockEntity(pos) instanceof CableBlockEntity cable) {
-			cable.neighborUpdate();
+	public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
+		if (level.getBlockEntity(pos) instanceof CableBlockEntity cable && level.getBlockEntity(neighbor) instanceof EnergyBlockEntity energyBlock) 
+        {
+			cable.newEnergyBlockNear(energyBlock);
 		}
-		super.neighborUpdate(state, world, pos, block, fromPos, notify);
+		super.onNeighborChange(state, level, pos, neighbor);
 	}
-    
 }
