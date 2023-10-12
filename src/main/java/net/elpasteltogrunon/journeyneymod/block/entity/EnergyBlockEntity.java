@@ -3,7 +3,9 @@ package net.elpasteltogrunon.journeyneymod.block.entity;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -63,6 +65,15 @@ public class EnergyBlockEntity extends BlockEntity
     {
         int requestedEnergy = Math.min(this.getMaxEnergy()-this.getEnergy(), amount);
         return this.receiveEnergy(target.extractEnergy(requestedEnergy));
+    }
+
+    protected static void updateNeighborCables(Level level, BlockPos pos, BlockState state, EnergyBlockEntity pEnergyBlock)
+    {
+        for(Direction dir : Direction.values())
+        {
+            if(level.getBlockEntity(pos.offset(dir.getNormal())) instanceof CableBlockEntity cable)
+                cable.newEnergyBlockNear(pEnergyBlock);
+        }
     }
 
     @Override

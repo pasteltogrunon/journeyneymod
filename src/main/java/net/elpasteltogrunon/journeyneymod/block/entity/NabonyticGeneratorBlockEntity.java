@@ -30,5 +30,7 @@ public class NabonyticGeneratorBlockEntity extends EnergyBlockEntity
             EnergyBlockEntity receiver = (EnergyBlockEntity) receiverCandidate;
             pEntity.transferEnergy(pEntity.getMaxTransfer(), receiver);
         }
+
+        updateNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
     }
 }

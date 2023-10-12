@@ -173,7 +173,7 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
             {
                 pEntity.maxProgress = time;
                 pEntity.progress++;
-                setChanged(level, pos, state);
+                
                 if(pEntity.progress >= pEntity.maxProgress)
                 {
                     craftItem(pEntity);
@@ -186,8 +186,10 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
                 level.setBlock(pos, state.setValue(NabonizerBlock.LIT, false), 3);
             pEntity.lit = false;
             pEntity.resetProgress();
-            setChanged(level, pos, state);
         }
+
+        setChanged(level, pos, state);
+        updateNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
     }
 
     private void resetProgress()

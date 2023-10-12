@@ -31,7 +31,7 @@ public class CableBlockEntity extends EnergyBlockEntity
 
         if(pCableEntity.master == null)
         {
-            pCableEntity.master = pCableEntity.findMasterAndConnections(pos);
+            pCableEntity.findMasterAndConnections(pos);
             pCableEntity.addNearEnergyBlocksToNetwork(pos);
         }
 
@@ -52,7 +52,7 @@ public class CableBlockEntity extends EnergyBlockEntity
     }
 
     //Finds the master of this cable and its connections
-    public CableBlockEntity findMasterAndConnections(BlockPos pos)
+    public void findMasterAndConnections(BlockPos pos)
     { 
         CableBlockEntity masterCandidate = null;
 
@@ -81,12 +81,12 @@ public class CableBlockEntity extends EnergyBlockEntity
         {
             this.connectedEnergyBLocks = new ArrayList<>();
             this.isMaster = true;
-            return this;
+            this.master = this;
         }
         else
         {
             this.isMaster = false;
-            return masterCandidate;
+            this.master = masterCandidate;
         }
     }
 
@@ -159,9 +159,8 @@ public class CableBlockEntity extends EnergyBlockEntity
             {
                 BlockPos newPos = pos.offset(dir.getNormal());
                 BlockEntity blockEntity = level.getBlockEntity(newPos);
-                if (blockEntity instanceof CableBlockEntity)
+                if (blockEntity instanceof CableBlockEntity cableEntity)
                 {
-                    CableBlockEntity cableEntity = (CableBlockEntity) blockEntity;
                     cableEntity.connections.remove(dir.getOpposite());
                     if(getPosMaster(newPos).equals(this))
                     {
@@ -179,17 +178,20 @@ public class CableBlockEntity extends EnergyBlockEntity
 
     public void newEnergyBlockNear(EnergyBlockEntity energyBlockEntity)
     {
+        if(level.isClientSide()) return;
         if(!(energyBlockEntity instanceof CableBlockEntity))
         {
-            if(!master.connectedEnergyBLocks.contains(energyBlockEntity))
-                master.connectedEnergyBLocks.add(energyBlockEntity);
+            if(this.master != null && !this.master.connectedEnergyBLocks.contains(energyBlockEntity))
+            {
+                this.master.connectedEnergyBLocks.add(energyBlockEntity);
+            }
         }
     } 
 
     public void sendMasterChatMessage()
     {
         if(master != null)
-            level.players().get(0).sendSystemMessage(Component.literal("Master position: " + master.getBlockPos().getX() + ", " + master.getBlockPos().getY() + ", " + master.getBlockPos().getZ()));
+            level.players().get(0).sendSystemMessage(Component.literal("Master position: " + master.getBlockPos().toShortString()));
         else
             level.players().get(0).sendSystemMessage(Component.literal("No master found..."));
     }
