@@ -1,13 +1,11 @@
 package net.elpasteltogrunon.journeyneymod.block.entity;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 import javax.annotation.Nullable;
 
 import org.jetbrains.annotations.NotNull;
 
-import net.elpasteltogrunon.journeyneymod.JourneyneyMod;
 import net.elpasteltogrunon.journeyneymod.block.custom.NabonizerBlock;
 import net.elpasteltogrunon.journeyneymod.recipe.NabonizerRecipe;
 import net.elpasteltogrunon.journeyneymod.screen.menu.NabonizerMenu;

@@ -60,16 +60,20 @@ public class CableBlockEntity extends EnergyBlockEntity
         for(Direction dir : Direction.values())
         {
             BlockPos newPos = pos.offset(dir.getNormal());
-            CableBlockEntity posCable = getPosMaster(newPos);
+            CableBlockEntity posCableMaster = getPosMaster(newPos);
             //The master can only be null if there is no cable, since all cables must have a master
-            if(posCable!=null)
+            if(posCableMaster!=null)
             {
-                connections.add(dir);
+                CableBlockEntity posCable = (CableBlockEntity) level.getBlockEntity(newPos);
+                if(!this.connections.contains(dir))
+                    this.connections.add(dir);
+                if(!posCable.connections.contains(dir.getOpposite()))
+                    posCable.connections.add(dir.getOpposite());
 
                 if(masterCandidate == null)
-                    masterCandidate = posCable;
+                    masterCandidate = posCableMaster;
                 else
-                    ((CableBlockEntity) level.getBlockEntity(newPos)).updateMaster(masterCandidate, newPos);
+                    posCable.updateMaster(masterCandidate, newPos, dir.getOpposite());
             }
         }
 
@@ -91,16 +95,13 @@ public class CableBlockEntity extends EnergyBlockEntity
     {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if(blockEntity instanceof CableBlockEntity)
-        {
-            this.isMaster = false;
             return ((CableBlockEntity) blockEntity).master;
-        }
 
         return null;
     }
 
     //Updates master and calls it on connections
-    public void updateMaster(CableBlockEntity newMaster, BlockPos pos)
+    public void updateMaster(CableBlockEntity newMaster, BlockPos pos, Direction commingFrom)
     {
         if(this.isMaster)
         {
@@ -113,15 +114,24 @@ public class CableBlockEntity extends EnergyBlockEntity
         }
         
         this.master = newMaster;
-        this.isMaster = newMaster == this;
+        if (this.isMaster = newMaster.equals(this))
+        {
+            this.connectedEnergyBLocks = new ArrayList<>();
+        }
         
         //Update neighbours
         for(Direction dir : connections)
         {
-            BlockPos newPos = pos.offset(dir.getNormal());
-            if(getPosMaster(newPos)!= newMaster)
+            if(!dir.equals(commingFrom))
             {
-                ((CableBlockEntity) level.getBlockEntity(newPos)).updateMaster(newMaster, newPos);
+                BlockPos newPos = pos.offset(dir.getNormal());
+                if(getPosMaster(newPos) != null)
+                    if(!getPosMaster(newPos).equals(newMaster))
+                    {
+                        ((CableBlockEntity) level.getBlockEntity(newPos)).updateMaster(newMaster, newPos, dir.getOpposite());
+                    }
+                else
+                    System.out.println("--[ERROR] Cable (at " + pos.toShortString() + ") connection at " + newPos.toShortString() + " does not exist! (2)");
             }
         }
     }
@@ -149,16 +159,22 @@ public class CableBlockEntity extends EnergyBlockEntity
             {
                 BlockPos newPos = pos.offset(dir.getNormal());
                 BlockEntity blockEntity = level.getBlockEntity(newPos);
-                if(getPosMaster(newPos)==this)
+                if (blockEntity instanceof CableBlockEntity)
                 {
-                    ((CableBlockEntity)blockEntity).updateMaster((CableBlockEntity)blockEntity, pos);
+                    CableBlockEntity cableEntity = (CableBlockEntity) blockEntity;
+                    cableEntity.connections.remove(dir.getOpposite());
+                    if(getPosMaster(newPos).equals(this))
+                    {
+                        cableEntity.updateMaster(cableEntity, pos, dir.getOpposite());
+                    }
+                }
+                else
+                {
+                    System.out.println("--[ERROR] Cable (at " + pos.toShortString() + ") connection at " + newPos.toShortString() + " does not exist! (1)");
                 }
             }
         }
-        else
-        {
-            
-        }
+        connections.clear();
     }
 
     public void sendMasterChatMessage()
