@@ -59,7 +59,7 @@ public class CableBlockEntity extends EnergyBlockEntity
         this.connections = new ArrayList<>();
         for(Direction dir : Direction.values())
         {
-            BlockPos newPos = pos.offset(dir.getNormal());
+            BlockPos newPos = pos.relative(dir);
             CableBlockEntity posCableMaster = getPosMaster(newPos);
             //The master can only be null if there is no cable, since all cables must have a master
             if(posCableMaster!=null)
@@ -124,14 +124,14 @@ public class CableBlockEntity extends EnergyBlockEntity
         {
             if(!dir.equals(commingFrom))
             {
-                BlockPos newPos = pos.offset(dir.getNormal());
+                BlockPos newPos = pos.relative(dir);
                 if(getPosMaster(newPos) != null)
                     if(!getPosMaster(newPos).equals(newMaster))
                     {
                         ((CableBlockEntity) level.getBlockEntity(newPos)).updateMaster(newMaster, newPos, dir.getOpposite());
                     }
                 else
-                    System.out.println("--[ERROR] Cable (at " + pos.toShortString() + ") connection at " + newPos.toShortString() + " does not exist! (2)");
+                    System.out.println("(Updatemaster) Cable (at " + pos.toShortString() + ") connection at " + dir.name() + " does not exist!");
             }
         }
     }
@@ -140,7 +140,7 @@ public class CableBlockEntity extends EnergyBlockEntity
     {
         for(Direction dir : Direction.values())
         {
-            BlockPos position = pos.offset(dir.getNormal());
+            BlockPos position = pos.relative(dir);
             BlockEntity blockEntity = level.getBlockEntity(position);
             if(blockEntity instanceof EnergyBlockEntity && ! (blockEntity instanceof CableBlockEntity))
             {
@@ -151,25 +151,26 @@ public class CableBlockEntity extends EnergyBlockEntity
         }
     }
 
+    //Removes the master from the network
     public void removeFromNetwork(BlockPos pos)
     {
         if(this.isMaster)
         {
             for (Direction dir : connections) 
             {
-                BlockPos newPos = pos.offset(dir.getNormal());
+                BlockPos newPos = pos.relative(dir);
                 BlockEntity blockEntity = level.getBlockEntity(newPos);
                 if (blockEntity instanceof CableBlockEntity cableEntity)
                 {
                     cableEntity.connections.remove(dir.getOpposite());
                     if(getPosMaster(newPos).equals(this))
                     {
-                        cableEntity.updateMaster(cableEntity, pos, dir.getOpposite());
+                        cableEntity.updateMaster(cableEntity, newPos, dir.getOpposite());
                     }
                 }
                 else
                 {
-                    System.out.println("--[ERROR] Cable (at " + pos.toShortString() + ") connection at " + newPos.toShortString() + " does not exist! (1)");
+                    System.out.println("(Removefromnetwork) Cable (at " + pos.toShortString() + ") connection at " + dir.name() + " does not exist! (1)"); 
                 }
             }
         }

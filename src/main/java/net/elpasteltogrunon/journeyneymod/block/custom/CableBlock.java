@@ -73,14 +73,4 @@ public class CableBlock extends BaseEntityBlock
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
-	/*@Override
-	public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) 
-    {
-        if(level.isClientSide()) return;
-		if (level.getBlockEntity(pos) instanceof CableBlockEntity cable && level.getBlockEntity(neighbor) instanceof EnergyBlockEntity energyBlock) 
-        {
-			cable.newEnergyBlockNear(energyBlock);
-		}
-		super.onNeighborChange(state, level, pos, neighbor);
-	}*/
 }

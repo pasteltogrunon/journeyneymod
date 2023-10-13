@@ -71,7 +71,7 @@ public class EnergyBlockEntity extends BlockEntity
     {
         for(Direction dir : Direction.values())
         {
-            if(level.getBlockEntity(pos.offset(dir.getNormal())) instanceof CableBlockEntity cable)
+            if(level.getBlockEntity(pos.relative(dir)) instanceof CableBlockEntity cable)
                 cable.newEnergyBlockNear(pEnergyBlock);
         }
     }
