@@ -1,14 +1,20 @@
 package net.elpasteltogrunon.journeyneymod.block.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import net.elpasteltogrunon.journeyneymod.block.custom.CableBlock;
+import net.elpasteltogrunon.journeyneymod.util.CableShapeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CableBlockEntity extends EnergyBlockEntity
 {
@@ -17,12 +23,25 @@ public class CableBlockEntity extends EnergyBlockEntity
     List<EnergyBlockEntity> connectedEnergyBLocks;
     List<Direction> connections;
 
+    private static final Map<Direction, Property<Boolean>> propFromDir = new HashMap<Direction, Property<Boolean>>()
+    {
+        {
+            put(Direction.DOWN, CableBlock.DOWN);
+            put(Direction.UP, CableBlock.UP);
+            put(Direction.NORTH, CableBlock.NORTH);
+            put(Direction.SOUTH, CableBlock.SOUTH);
+            put(Direction.EAST, CableBlock.EAST);
+            put(Direction.WEST, CableBlock.WEST);
+        }
+    };
+
     public CableBlockEntity(BlockPos pos, BlockState state) 
     {
         super(ModBlockEntities.CABLE.get(), pos, state);
 
         this.maxEnergy = 100;
         this.master = null;
+        this.connections = new ArrayList<>();
     }
     
     public static void tick(Level level, BlockPos pos, BlockState state, CableBlockEntity pCableEntity) 
@@ -56,7 +75,6 @@ public class CableBlockEntity extends EnergyBlockEntity
     { 
         CableBlockEntity masterCandidate = null;
 
-        this.connections = new ArrayList<>();
         for(Direction dir : Direction.values())
         {
             BlockPos newPos = pos.relative(dir);
@@ -64,16 +82,14 @@ public class CableBlockEntity extends EnergyBlockEntity
             //The master can only be null if there is no cable, since all cables must have a master
             if(posCableMaster!=null)
             {
-                CableBlockEntity posCable = (CableBlockEntity) level.getBlockEntity(newPos);
-                if(!this.connections.contains(dir))
-                    this.connections.add(dir);
-                if(!posCable.connections.contains(dir.getOpposite()))
-                    posCable.connections.add(dir.getOpposite());
+                CableBlockEntity cableEntity = (CableBlockEntity) level.getBlockEntity(newPos);
+                this.addConnection(dir, pos);
+                cableEntity.addConnection(dir.getOpposite(), newPos);
 
                 if(masterCandidate == null)
                     masterCandidate = posCableMaster;
                 else
-                    posCable.updateMaster(masterCandidate, newPos, dir.getOpposite());
+                    cableEntity.updateMaster(masterCandidate, newPos, dir.getOpposite(), false);
             }
         }
 
@@ -93,22 +109,21 @@ public class CableBlockEntity extends EnergyBlockEntity
     //Gets the master at a certain location
     public CableBlockEntity getPosMaster(BlockPos pos)
     {
-        BlockEntity blockEntity = level.getBlockEntity(pos);
-        if(blockEntity instanceof CableBlockEntity)
-            return ((CableBlockEntity) blockEntity).master;
+        if(level.getBlockEntity(pos) instanceof CableBlockEntity cableEntity)
+            return cableEntity.master;
 
         return null;
     }
 
     //Updates master and calls it on connections
-    public void updateMaster(CableBlockEntity newMaster, BlockPos pos, Direction commingFrom)
+    public void updateMaster(CableBlockEntity newMaster, BlockPos pos, Direction commingFrom, boolean doUpdateEnergyBlocks)
     {
         if(this.isMaster)
         {
             for(EnergyBlockEntity energyBlock : this.connectedEnergyBLocks)
             {
                 if(!newMaster.connectedEnergyBLocks.contains(energyBlock))
-                newMaster.connectedEnergyBLocks.add(energyBlock);
+                    newMaster.connectedEnergyBLocks.add(energyBlock);
             }
             this.connectedEnergyBLocks.clear();
         }
@@ -119,6 +134,9 @@ public class CableBlockEntity extends EnergyBlockEntity
             this.connectedEnergyBLocks = new ArrayList<>();
         }
         
+        if(doUpdateEnergyBlocks)
+            addNearEnergyBlocksToNetwork(pos);
+
         //Update neighbours
         for(Direction dir : connections)
         {
@@ -128,7 +146,7 @@ public class CableBlockEntity extends EnergyBlockEntity
                 if(getPosMaster(newPos) != null)
                     if(!getPosMaster(newPos).equals(newMaster))
                     {
-                        ((CableBlockEntity) level.getBlockEntity(newPos)).updateMaster(newMaster, newPos, dir.getOpposite());
+                        ((CableBlockEntity) level.getBlockEntity(newPos)).updateMaster(newMaster, newPos, dir.getOpposite(), doUpdateEnergyBlocks);
                     }
                 else
                     System.out.println("(Updatemaster) Cable (at " + pos.toShortString() + ") connection at " + dir.name() + " does not exist!");
@@ -154,18 +172,25 @@ public class CableBlockEntity extends EnergyBlockEntity
     //Removes the master from the network
     public void removeFromNetwork(BlockPos pos)
     {
+        for(Direction dir : connections)
+        {
+            BlockPos newPos = pos.relative(dir);
+            if (level.getBlockEntity(newPos) instanceof CableBlockEntity cableEntity)
+                cableEntity.removeConnection(dir.getOpposite(), newPos);
+        }
+
         if(this.isMaster)
         {
+
             for (Direction dir : connections) 
             {
                 BlockPos newPos = pos.relative(dir);
-                BlockEntity blockEntity = level.getBlockEntity(newPos);
-                if (blockEntity instanceof CableBlockEntity cableEntity)
+                if (level.getBlockEntity(newPos) instanceof CableBlockEntity cableEntity)
                 {
-                    cableEntity.connections.remove(dir.getOpposite());
+                    //If after updating masters in one direction it keeps being the same in this direction, update it
                     if(getPosMaster(newPos).equals(this))
                     {
-                        cableEntity.updateMaster(cableEntity, newPos, dir.getOpposite());
+                        cableEntity.updateMaster(cableEntity, newPos, dir.getOpposite(), true);
                     }
                 }
                 else
@@ -174,7 +199,52 @@ public class CableBlockEntity extends EnergyBlockEntity
                 }
             }
         }
+        else
+        {
+            List<CableBlockEntity> cablesOnNewNetwork = new ArrayList<>();
+            //Connections cannot be empty, since it is not master
+            CableBlockEntity oldMaster = getPosMaster(pos.relative(this.connections.get(0)));
+            if(oldMaster != null)
+            {
+                oldMaster.connectedEnergyBLocks.clear();
+                oldMaster.addToNetworkList(cablesOnNewNetwork, oldMaster.getBlockPos(), null);
+            }
+
+            for(Direction dir : connections)
+            {
+                BlockPos newPos = pos.relative(dir);
+                if(level.getBlockEntity(newPos) instanceof CableBlockEntity cableEntity)
+                {
+                    if(!cablesOnNewNetwork.contains(cableEntity))
+                    {
+                        cableEntity.updateMaster(cableEntity, newPos, dir.getOpposite(), true);
+                    }
+                }
+            }
+
+        }
+
         connections.clear();
+    }
+
+    public void addToNetworkList(List<CableBlockEntity> networkCables, BlockPos pos, Direction commingFrom)
+    {
+        if(!networkCables.contains(this))
+        {
+            networkCables.add(this);
+            this.addNearEnergyBlocksToNetwork(pos);
+            for(Direction dir : connections)
+            {
+                if(!dir.equals(commingFrom))
+                {
+                    BlockPos newPos = pos.relative(dir);
+                    if(level.getBlockEntity(newPos) instanceof CableBlockEntity cableEntity)
+                    {
+                        cableEntity.addToNetworkList(networkCables, newPos, dir.getOpposite());
+                    }
+                }
+            }
+        }
     }
 
     public void newEnergyBlockNear(EnergyBlockEntity energyBlockEntity)
@@ -195,5 +265,25 @@ public class CableBlockEntity extends EnergyBlockEntity
             level.players().get(0).sendSystemMessage(Component.literal("Master position: " + master.getBlockPos().toShortString()));
         else
             level.players().get(0).sendSystemMessage(Component.literal("No master found..."));
+    }
+
+    private void addConnection(Direction dir, BlockPos pos)
+    {
+        if(!this.connections.contains(dir))
+            this.connections.add(dir);
+
+        level.setBlock(pos, level.getBlockState(pos).setValue(propFromDir.get(dir), true), 3);
+    }
+
+    private void removeConnection(Direction dir, BlockPos pos)
+    {
+        this.connections.remove(dir);
+
+        level.setBlock(pos, level.getBlockState(pos).setValue(propFromDir.get(dir), true), 3);
+    }
+
+    public VoxelShape getShape()
+    {
+        return CableShapeUtil.getShape(connections);
     }
 }
