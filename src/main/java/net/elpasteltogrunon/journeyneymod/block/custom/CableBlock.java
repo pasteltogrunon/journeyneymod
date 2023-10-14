@@ -1,19 +1,14 @@
 package net.elpasteltogrunon.journeyneymod.block.custom;
 
-import java.util.List;
-
 import javax.annotation.Nullable;
 
 import net.elpasteltogrunon.journeyneymod.block.entity.CableBlockEntity;
 import net.elpasteltogrunon.journeyneymod.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -25,7 +20,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CableBlock extends BaseEntityBlock
+public class CableBlock extends Block implements EntityBlock
 { 
     public static final Property<Boolean> NORTH = BooleanProperty.create("north");
     public static final Property<Boolean> SOUTH = BooleanProperty.create("south");
@@ -62,12 +57,6 @@ public class CableBlock extends BaseEntityBlock
 
 
     //BLOCK ENTITY
-    @Override
-    public RenderShape getRenderShape(BlockState bState)
-    {
-        return RenderShape.INVISIBLE;
-    }
-
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
@@ -112,12 +101,9 @@ public class CableBlock extends BaseEntityBlock
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
-    public void updateBlockState(List<Direction> connections)
-    {
-        for(Direction dir : connections)
-        {
-            
-        }
-    }
+    @Nullable
+   protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> actualType, BlockEntityType<E> targetType, BlockEntityTicker<? super E> ticker) {
+      return targetType == actualType ? (BlockEntityTicker<A>)ticker : null;
+   }
 
 }

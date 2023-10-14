@@ -65,10 +65,10 @@ public class NabonizerBlock extends BaseEntityBlock
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos,
                                  Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pLevel.isClientSide()) {
-            BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof NabonizerBlockEntity) {
-                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (NabonizerBlockEntity)entity, pPos);
+        if (!pLevel.isClientSide()) 
+        {
+            if(pLevel.getBlockEntity(pPos) instanceof NabonizerBlockEntity nabonizerEntity) {
+                NetworkHooks.openScreen(((ServerPlayer)pPlayer), nabonizerEntity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }

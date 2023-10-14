@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -13,14 +12,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class CableShapeUtil 
 {
 
-    private static final VoxelShape CORE = Shapes.box(.3, .3, .3, .7, .7, .7);
+    private static final VoxelShape CORE = Shapes.box(.25, .25, .25, .75, .75, .75);
 
-    private static final VoxelShape NORTH = Shapes.box(.3, .3, 0, .7, .7, .3);
-    private static final VoxelShape SOUTH = Shapes.box(.3, .3, .7, .7, .7, 1);
-    private static final VoxelShape WEST = Shapes.box(0, .3, .3, .3, .7, .7);
-    private static final VoxelShape EAST = Shapes.box(.7, .3, .3, 1, .7, .7);
-    private static final VoxelShape UP = Shapes.box(.3, .7, .3, .7, 1, .7);
-    private static final VoxelShape DOWN = Shapes.box(.3, 0, .3, .7, .3, .7);
+    private static final VoxelShape NORTH = Shapes.box(.25, .25, 0, .75, .75, .25);
+    private static final VoxelShape SOUTH = Shapes.box(.25, .25, .75, .75, .75, 1);
+    private static final VoxelShape WEST = Shapes.box(0, .25, .25, .25, .75, .75);
+    private static final VoxelShape EAST = Shapes.box(.75, .25, .25, 1, .75, .75);
+    private static final VoxelShape UP = Shapes.box(.25, .75, .25, .75, 1, .75);
+    private static final VoxelShape DOWN = Shapes.box(.25, 0, .25, .75, .25, .75);
 
     private static final Map<Direction, VoxelShape> shapesFromDir = new HashMap<Direction, VoxelShape>()
     {
