@@ -272,18 +272,19 @@ public class CableBlockEntity extends EnergyBlockEntity
         if(!this.connections.contains(dir))
             this.connections.add(dir);
 
-        level.setBlock(pos, level.getBlockState(pos).setValue(propFromDir.get(dir), true), 3);
+        level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(propFromDir.get(dir), true));
     }
 
     private void removeConnection(Direction dir, BlockPos pos)
     {
         this.connections.remove(dir);
 
-        level.setBlock(pos, level.getBlockState(pos).setValue(propFromDir.get(dir), true), 3);
+        level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(propFromDir.get(dir), false));
     }
 
     public VoxelShape getShape()
     {
         return CableShapeUtil.getShape(connections);
     }
+
 }

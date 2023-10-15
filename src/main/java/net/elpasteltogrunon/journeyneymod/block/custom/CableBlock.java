@@ -67,6 +67,36 @@ public class CableBlock extends Block implements EntityBlock
         return Shapes.block();
     }
 
+    @Override
+    public VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) 
+    {
+        return Shapes.empty();
+    }
+
+    @Override
+    public VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) 
+    {
+        return this.getShape(state, level, pos, context);
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) 
+    {
+        return this.getShape(state, level, pos, context);
+    }
+
+    @Override
+    public VoxelShape getBlockSupportShape(BlockState state, BlockGetter level, BlockPos pos) {
+        return this.getCollisionShape(state, level, pos, CollisionContext.empty());
+     }
+
+    @Override
+    public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos)
+    {
+        return Shapes.empty();
+    }
+  
+
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) 

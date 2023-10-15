@@ -1,16 +1,15 @@
 {
 	"elements": [
 		{
-			"from": [0.25, 0.25, 0.25],
-			"to": [0.75, 0.75, 0.75],
-			"color": 6,
+			"from": [4, 4, 4],
+			"to": [12, 12, 12],
 			"faces": {
-				"north": {"uv": [8, 8, 16, 16], "texture": "#missing"},
-				"east": {"uv": [8, 8, 16, 16], "texture": "#missing"},
-				"south": {"uv": [8, 8, 16, 16], "texture": "#missing"},
-				"west": {"uv": [8, 8, 16, 16], "texture": "#missing"},
-				"up": {"uv": [8, 8, 16, 16], "texture": "#missing"},
-				"down": {"uv": [8, 8, 16, 16], "texture": "#missing"}
+				"north": {"uv": [8, 8, 16, 16], "texture": "journeyneymod:block/cable"},
+				"east": {"uv": [8, 8, 16, 16], "texture": "journeyneymod:block/cable"},
+				"south": {"uv": [8, 8, 16, 16], "texture": "journeyneymod:block/cable"},
+				"west": {"uv": [8, 8, 16, 16], "texture": "journeyneymod:block/cable"},
+				"up": {"uv": [8, 8, 16, 16], "texture": "journeyneymod:block/cable"},
+				"down": {"uv": [8, 8, 16, 16], "texture": "journeyneymod:block/cable"}
 			}
 		}
 	]
