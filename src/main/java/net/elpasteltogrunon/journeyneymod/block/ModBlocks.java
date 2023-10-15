@@ -37,7 +37,7 @@ public class ModBlocks
         ()-> new NabonyticGeneratorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     
     public static final RegistryObject<CableBlock> CABLE = registerBlock("cable", 
-        ()-> new CableBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).noCollission()));
+        ()-> new CableBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_STAINED_GLASS).noCollission().sound(SoundType.WOOL).dynamicShape()));
     
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block)
