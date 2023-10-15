@@ -5,22 +5,29 @@ import javax.annotation.Nullable;
 import net.elpasteltogrunon.journeyneymod.block.entity.CableBlockEntity;
 import net.elpasteltogrunon.journeyneymod.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CableBlock extends Block implements EntityBlock
+public class CableBlock extends Block implements EntityBlock, SimpleWaterloggedBlock
 { 
     public static final Property<Boolean> NORTH = BooleanProperty.create("north");
     public static final Property<Boolean> SOUTH = BooleanProperty.create("south");
@@ -28,6 +35,8 @@ public class CableBlock extends Block implements EntityBlock
     public static final Property<Boolean> DOWN = BooleanProperty.create("down");
     public static final Property<Boolean> WEST = BooleanProperty.create("west");
     public static final Property<Boolean> EAST = BooleanProperty.create("east");
+    
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public CableBlock(Properties properties) 
     {
@@ -45,7 +54,13 @@ public class CableBlock extends Block implements EntityBlock
     @Override
     public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
-        builder.add(NORTH).add(SOUTH).add(UP).add(DOWN).add(WEST).add(EAST);
+        builder.add(NORTH).add(SOUTH).add(UP).add(DOWN).add(WEST).add(EAST).add(WATERLOGGED);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) 
+    {
+        return defaultBlockState().setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER);
     }
 
     @Override
@@ -85,16 +100,29 @@ public class CableBlock extends Block implements EntityBlock
         return this.getShape(state, level, pos, context);
     }
 
-    @Override
-    public VoxelShape getBlockSupportShape(BlockState state, BlockGetter level, BlockPos pos) {
-        return this.getCollisionShape(state, level, pos, CollisionContext.empty());
-     }
 
-    @Override
-    public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos)
+    public float getShadeBrightness(BlockState p_48731_, BlockGetter p_48732_, BlockPos p_48733_) 
     {
-        return Shapes.empty();
+        return 1.0F;
     }
+  
+     public boolean propagatesSkylightDown(BlockState p_48740_, BlockGetter p_48741_, BlockPos p_48742_) 
+     {
+        return true;
+    }
+
+
+    public FluidState getFluidState(BlockState p_56397_) {
+      return (Boolean)p_56397_.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(p_56397_);
+   }
+
+   public BlockState updateShape(BlockState p_56381_, Direction p_56382_, BlockState p_56383_, LevelAccessor p_56384_, BlockPos p_56385_, BlockPos p_56386_) {
+      if ((Boolean)p_56381_.getValue(WATERLOGGED)) {
+         p_56384_.scheduleTick(p_56385_, Fluids.WATER, Fluids.WATER.getTickDelay(p_56384_));
+      }
+
+      return super.updateShape(p_56381_, p_56382_, p_56383_, p_56384_, p_56385_, p_56386_);
+   }
   
 
     @Nullable
