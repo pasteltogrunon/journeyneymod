@@ -3,11 +3,9 @@ package net.elpasteltogrunon.journeyneymod.screen.menu;
 import java.util.List;
 
 import net.elpasteltogrunon.journeyneymod.block.ModBlocks;
-import net.elpasteltogrunon.journeyneymod.block.entity.NabonizerBlockEntity;
-import net.elpasteltogrunon.journeyneymod.screen.menu.slot.OutputSlot;
+import net.elpasteltogrunon.journeyneymod.block.entity.NabonyticGeneratorBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -21,22 +19,22 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class NabonizerMenu extends AbstractContainerMenu
+public class NabonyticGeneratorMenu extends AbstractContainerMenu
 {
-    public static NabonizerBlockEntity blockEntity;
+    public static NabonyticGeneratorBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
 
-    public NabonizerMenu(int id, Inventory inv, FriendlyByteBuf extraData)
+    public NabonyticGeneratorMenu(int id, Inventory inv, FriendlyByteBuf extraData)
     {
-        this(id, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
+        this(id, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(3));
     }
 
-    public NabonizerMenu(int id, Inventory inv, BlockEntity entity, ContainerData data)
+    public NabonyticGeneratorMenu(int id, Inventory inv, BlockEntity entity, ContainerData data)
     {
-        super(ModMenuTypes.NABONIZER_MENU.get(), id);
-        checkContainerSize(inv, 4);
-        blockEntity = (NabonizerBlockEntity) entity;
+        super(ModMenuTypes.NABONYTIC_GENERATOR_MENU.get(), id);
+        checkContainerSize(inv, 1);
+        blockEntity = (NabonyticGeneratorBlockEntity) entity;
         this.level = inv.player.level();
         this.data = data;
 
@@ -44,33 +42,29 @@ public class NabonizerMenu extends AbstractContainerMenu
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 12, 26));
-            this.addSlot(new SlotItemHandler(handler, 1, 12, 49));
-            this.addSlot(new SlotItemHandler(handler, 2, 86, 15));
-            this.addSlot(new OutputSlot(handler, 3, 86, 60));
+            this.addSlot(new SlotItemHandler(handler, 0, 80, 47));
         });
 
         addDataSlots(data);
     }
 
-    public boolean isCrafting() 
+    public boolean isBurning() 
     {
         return data.get(0) > 0;
     }
 
-    public int getScaledProgress() 
+    public int getScaledBurnTime() 
     {
-        int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);  // Max Progress
-        int progressArrowSize = 26; // This is the height in pixels of your arrow
+        int burnTime = this.data.get(0);
+        int burnTimeIndicatorSize = 15;
 
-        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+        return burnTime != 0 ? Math.min(burnTime * burnTimeIndicatorSize / 1600, burnTimeIndicatorSize) : 0;
     }
 
     public int getScaledEnergy()
     {
-        int energy = this.data.get(2);
-        int maxEnergy = this.data.get(3); 
+        int energy = this.data.get(1);
+        int maxEnergy = this.data.get(2); 
         int energyBarSize = 64; 
 
         return maxEnergy != 0 && energy != 0 ? energy * energyBarSize / maxEnergy : 0;
@@ -78,18 +72,11 @@ public class NabonizerMenu extends AbstractContainerMenu
 
     public List<Component> getEnergyTooltips()
     {
-        int energy = this.data.get(2);
-        int maxEnergy = this.data.get(3); 
+        int energy = this.data.get(1);
+        int maxEnergy = this.data.get(2);
         return List.of(Component.literal(energy+"/"+maxEnergy+" NU"));
     }
 
-    // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
-    // must assign a slot number to each of the slots used by the GUI.
-    // For this container, we can see both the tile inventory's slots as well as the player inventory slots and the hotbar.
-    // Each time we add a Slot to the container, it automatically increases the slotIndex, which means
-    //  0 - 8 = hotbar slots (which will map to the InventoryPlayer slot numbers 0 - 8)
-    //  9 - 35 = player inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
-    //  36 - 44 = TileInventory slots, which map to our TileEntity slot numbers 0 - 8)
     private static final int HOTBAR_SLOT_COUNT = 9;
     private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
     private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
@@ -98,37 +85,43 @@ public class NabonizerMenu extends AbstractContainerMenu
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
-    // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 4;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 1;
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) 
     {
         Slot sourceSlot = slots.get(index);
-        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;  //EMPTY_ITEM
+        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;
         ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copyOfSourceStack = sourceStack.copy();
 
-        // Check if the slot clicked is one of the vanilla container slots
-        if (index < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
-            // This is a vanilla container slot so merge the stack into the tile inventory
+        if (index < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) 
+        {
             if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
-                    + TE_INVENTORY_SLOT_COUNT - 1, false)) {
-                return ItemStack.EMPTY;  // EMPTY_ITEM
-            }
-        } else if (index < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
-            // This is a TE slot so merge the stack into the players inventory
-            if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
+                    + TE_INVENTORY_SLOT_COUNT, false)) 
+            {
                 return ItemStack.EMPTY;
             }
-        } else {
+        }
+         else if (index < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) 
+         {
+            if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) 
+            {
+                return ItemStack.EMPTY;
+            }
+        }
+        else 
+        {
             System.out.println("Invalid slotIndex:" + index);
             return ItemStack.EMPTY;
         }
-        // If stack size == 0 (the entire stack was moved) set slot contents to null
-        if (sourceStack.getCount() == 0) {
+
+        if (sourceStack.getCount() == 0) 
+        {
             sourceSlot.set(ItemStack.EMPTY);
-        } else {
+        }
+        else 
+        {
             sourceSlot.setChanged();
         }
         sourceSlot.onTake(playerIn, sourceStack);
@@ -139,23 +132,21 @@ public class NabonizerMenu extends AbstractContainerMenu
     public boolean stillValid(Player player) 
     {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                player, ModBlocks.NABONIZER.get());
+                player, ModBlocks.NABONYTIC_GENERATOR.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) 
     {
-        for (int i = 0; i < 3; ++i) {
-            for (int l = 0; l < 9; ++l) {
+        for (int i = 0; i < 3; ++i) 
+            for (int l = 0; l < 9; ++l)
                 this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 86 + i * 18));
-            }
-        }
+
     }
 
     private void addPlayerHotbar(Inventory playerInventory) 
     {
-        for (int i = 0; i < 9; ++i) {
+        for (int i = 0; i < 9; ++i)
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 144));
-        }
     }
     
 }

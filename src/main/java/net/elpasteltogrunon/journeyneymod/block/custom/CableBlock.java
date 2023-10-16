@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import net.elpasteltogrunon.journeyneymod.block.entity.CableBlockEntity;
 import net.elpasteltogrunon.journeyneymod.block.entity.ModBlockEntities;
+import net.elpasteltogrunon.journeyneymod.util.CableShapeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -92,7 +93,7 @@ public class CableBlock extends Block implements EntityBlock, SimpleWaterloggedB
     {
         if (level.getBlockEntity(pos) instanceof CableBlockEntity cableEntity)
         {
-            return cableEntity.getShape();
+            return CableShapeUtil.getShape(state);
         }
         return Shapes.block();
     }

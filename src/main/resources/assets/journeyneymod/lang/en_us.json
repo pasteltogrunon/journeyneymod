@@ -6,6 +6,7 @@
     "item.journeyneymod.nabonized_gunpowder":"Nabonized Gunpowder",
     "item.journeyneymod.tortoisim_spawn_egg":"Tortoisim Spawn Egg",
     "item.journeyneymod.tortoisim_scute":"Tortoisim Scute",
+    "item.journeyneymod.nabonized_coal":"Nabonized Coal",
 
     "item.journeyneymod.nabonite_sword":"Nabonite Sword",
     "item.journeyneymod.nabonite_shovel":"Nabonite Shovel",
@@ -15,6 +16,7 @@
 
     "block.journeyneymod.nabonite_ore":"Nabonite Ore",
     "block.journeyneymod.deepslate_nabonite_ore":"Deepslate Nabonite Ore",
+    "block.journeyneymod.machine_block":"Machine Block",
     "block.journeyneymod.nabonizer":"Nabonizer",
     "block.journeyneymod.nabonytic_generator":"Nabonytic Generator",
     "block.journeyneymod.cable":"Cable",

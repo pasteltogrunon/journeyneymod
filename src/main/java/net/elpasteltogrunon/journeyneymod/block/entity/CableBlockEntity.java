@@ -3,14 +3,12 @@ package net.elpasteltogrunon.journeyneymod.block.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.elpasteltogrunon.journeyneymod.util.CableShapeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 import static net.elpasteltogrunon.journeyneymod.block.custom.CableBlock.propFromDir;
 
@@ -149,7 +147,10 @@ public class CableBlockEntity extends EnergyBlockEntity
             if(blockEntity instanceof EnergyBlockEntity && ! (blockEntity instanceof CableBlockEntity))
             {
                 if(!master.connectedEnergyBLocks.contains((EnergyBlockEntity) blockEntity))
+                {
+                    level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(propFromDir.get(dir), true));
                     master.connectedEnergyBLocks.add((EnergyBlockEntity) blockEntity);
+                }
             }
             
         }
@@ -233,7 +234,7 @@ public class CableBlockEntity extends EnergyBlockEntity
         }
     }
 
-    public void newEnergyBlockNear(EnergyBlockEntity energyBlockEntity)
+    public void newEnergyBlockNear(EnergyBlockEntity energyBlockEntity, BlockPos pos, Direction dir)
     {
         if(level.isClientSide()) return;
         if(!(energyBlockEntity instanceof CableBlockEntity))
@@ -241,6 +242,20 @@ public class CableBlockEntity extends EnergyBlockEntity
             if(this.master != null && !this.master.connectedEnergyBLocks.contains(energyBlockEntity))
             {
                 this.master.connectedEnergyBLocks.add(energyBlockEntity);
+                level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(propFromDir.get(dir), true));
+            }
+        }
+    } 
+
+    public void removeEnergyBlockNear(EnergyBlockEntity energyBlockEntity, BlockPos pos, Direction dir)
+    {
+        if(level.isClientSide()) return;
+        if(!(energyBlockEntity instanceof CableBlockEntity))
+        {
+            if(this.master != null && this.master.connectedEnergyBLocks.contains(energyBlockEntity))
+            {
+                this.master.connectedEnergyBLocks.remove(energyBlockEntity);
+                level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(propFromDir.get(dir), false));
             }
         }
     } 
@@ -267,10 +282,4 @@ public class CableBlockEntity extends EnergyBlockEntity
 
         level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(propFromDir.get(dir), false));
     }
-
-    public VoxelShape getShape()
-    {
-        return CableShapeUtil.getShape(connections);
-    }
-
 }

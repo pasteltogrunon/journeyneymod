@@ -1,13 +1,15 @@
 package net.elpasteltogrunon.journeyneymod.util;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import static net.elpasteltogrunon.journeyneymod.block.custom.CableBlock.propFromDir;
 
 public class CableShapeUtil 
 {
@@ -33,12 +35,13 @@ public class CableShapeUtil
         }
     };
 
-    public static VoxelShape getShape(List<Direction> connections)
+    public static VoxelShape getShape(BlockState state)
     {
         VoxelShape shape = CORE;
-        for(Direction dir : connections)
+        for(Direction dir : Direction.values())
         {
-            shape = Shapes.join(shape, shapesFromDir.get(dir), BooleanOp.OR);
+            if(state.getValue(propFromDir.get(dir)))
+                shape = Shapes.join(shape, shapesFromDir.get(dir), BooleanOp.OR);
         }
         return shape;
     }

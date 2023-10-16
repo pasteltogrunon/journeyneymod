@@ -67,12 +67,23 @@ public class EnergyBlockEntity extends BlockEntity
         return this.receiveEnergy(target.extractEnergy(requestedEnergy));
     }
 
-    protected static void updateNeighborCables(Level level, BlockPos pos, BlockState state, EnergyBlockEntity pEnergyBlock)
+    protected static void addToNeighborCables(Level level, BlockPos pos, BlockState state, EnergyBlockEntity pEnergyBlock)
     {
         for(Direction dir : Direction.values())
         {
-            if(level.getBlockEntity(pos.relative(dir)) instanceof CableBlockEntity cable)
-                cable.newEnergyBlockNear(pEnergyBlock);
+            BlockPos newPos = pos.relative(dir);
+            if(level.getBlockEntity(newPos) instanceof CableBlockEntity cable)
+                cable.newEnergyBlockNear(pEnergyBlock, newPos, dir.getOpposite());
+        }
+    }
+
+    public static void removeFromNeighbourCables(Level level, BlockPos pos, BlockState state, EnergyBlockEntity pEnergyBlock)
+    {
+        for(Direction dir : Direction.values())
+        {
+            BlockPos newPos = pos.relative(dir);
+            if(level.getBlockEntity(newPos) instanceof CableBlockEntity cable)
+                cable.removeEnergyBlockNear(pEnergyBlock, newPos, dir.getOpposite());
         }
     }
 

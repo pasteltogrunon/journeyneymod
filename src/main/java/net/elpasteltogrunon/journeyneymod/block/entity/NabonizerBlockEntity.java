@@ -31,6 +31,8 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvider
 {
+    private static final int CONSUMING_RATE = 5;
+
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(4)
     {
@@ -145,7 +147,8 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
         this.lazyItemHandler.invalidate();
     }
 
-    public void drops() {
+    public void drops() 
+    {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) 
         {
@@ -167,7 +170,7 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
                 level.setBlock(pos, state.setValue(NabonizerBlock.LIT, true), 3);
             pEntity.lit = true;
 
-            pEntity.extractEnergy(5);
+            pEntity.extractEnergy(CONSUMING_RATE);
 
             if(pEntity.energy > 0)
             {
@@ -189,7 +192,7 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
         }
 
         setChanged(level, pos, state);
-        updateNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
+        addToNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
     }
 
     private void resetProgress()

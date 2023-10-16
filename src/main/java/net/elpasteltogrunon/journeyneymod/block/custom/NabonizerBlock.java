@@ -2,6 +2,7 @@ package net.elpasteltogrunon.journeyneymod.block.custom;
 
 import javax.annotation.Nullable;
 
+import net.elpasteltogrunon.journeyneymod.block.entity.EnergyBlockEntity;
 import net.elpasteltogrunon.journeyneymod.block.entity.ModBlockEntities;
 import net.elpasteltogrunon.journeyneymod.block.entity.NabonizerBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -26,7 +27,8 @@ import net.minecraftforge.network.NetworkHooks;
 public class NabonizerBlock extends BaseEntityBlock
 {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
-    public NabonizerBlock(Properties properties) {
+    public NabonizerBlock(Properties properties) 
+    {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, Boolean.FALSE));
     }
@@ -52,13 +54,17 @@ public class NabonizerBlock extends BaseEntityBlock
     }
     
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-        if (pState.getBlock() != pNewState.getBlock()) {
-            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof NabonizerBlockEntity) {
-                ((NabonizerBlockEntity) blockEntity).drops();
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) 
+    {
+        if (pState.getBlock() != pNewState.getBlock()) 
+        {
+            if (pLevel.getBlockEntity(pPos) instanceof NabonizerBlockEntity nabonizerEntity) 
+            {
+                nabonizerEntity.drops();
+                EnergyBlockEntity.removeFromNeighbourCables(pLevel, pPos, pNewState, nabonizerEntity);
             }
         }
+
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 

@@ -3,9 +3,8 @@ package net.elpasteltogrunon.journeyneymod.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.elpasteltogrunon.journeyneymod.JourneyneyMod;
-import net.elpasteltogrunon.journeyneymod.screen.menu.NabonizerMenu;
+import net.elpasteltogrunon.journeyneymod.screen.menu.NabonyticGeneratorMenu;
 import net.elpasteltogrunon.journeyneymod.util.MouseUtil;
-
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -13,12 +12,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class NabonizerScreen extends AbstractContainerScreen<NabonizerMenu>
-{   
+public class NabonyticGeneratorScreen extends AbstractContainerScreen<NabonyticGeneratorMenu>
+{
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation(JourneyneyMod.MOD_ID,"textures/gui/nabonizer_gui.png");
+            new ResourceLocation(JourneyneyMod.MOD_ID,"textures/gui/nabonytic_generator_gui.png");
 
-    public NabonizerScreen(NabonizerMenu menu, Inventory inv, Component comp)
+    public NabonyticGeneratorScreen(NabonyticGeneratorMenu menu, Inventory inv, Component comp)
     {
         super(menu, inv, comp);
     }
@@ -40,8 +39,8 @@ public class NabonizerScreen extends AbstractContainerScreen<NabonizerMenu>
 
         graphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
-        renderProgressArrow(graphics, x, y);
         renderEnergyBar(graphics, x, y);
+        renderBurnTime(graphics, x, y);
     }
 
     @Override
@@ -54,10 +53,12 @@ public class NabonizerScreen extends AbstractContainerScreen<NabonizerMenu>
         super.renderTooltip(graphics, pMouseX, pMouseY);
     }
 
-    private void renderProgressArrow(GuiGraphics graphics, int x, int y) 
+    private void renderBurnTime(GuiGraphics graphics, int x, int y) 
     {
-        if(menu.isCrafting()) {
-            graphics.blit(TEXTURE, x + 105, y + 33, 176, 0, 8, menu.getScaledProgress());
+        if(menu.isBurning()) 
+        {
+            int s = menu.getScaledBurnTime();
+            graphics.blit(TEXTURE, x + 82, y + 42-s, 196, 15-s, 11, menu.getScaledBurnTime());
         }
     }
 
@@ -83,7 +84,7 @@ public class NabonizerScreen extends AbstractContainerScreen<NabonizerMenu>
     }
 
     private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height)
-     {
+    {
         return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, width, height);
     }
 }

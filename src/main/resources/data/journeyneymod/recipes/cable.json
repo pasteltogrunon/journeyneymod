@@ -2,19 +2,19 @@
     "type": "minecraft:crafting_shaped",
     "category": "misc",
     "pattern": [
-      " # ",
-      "#X#",
-      " # "
+      "###",
+      "XXX",
+      "###"
     ],
     "key": {
       "#": {
-        "item": "journeyneymod:nabonite_dust"
+        "item": "minecraft:string"
       },
       "X": {
-        "item": "minecraft:copper_ingot"
+        "item": "journeyneymod:nabonite_dust"
       }
     },
     "result": {
-      "item": "journeyneymod:nabonite_ingot"
+      "item": "journeyneymod:cable"
     }
   }

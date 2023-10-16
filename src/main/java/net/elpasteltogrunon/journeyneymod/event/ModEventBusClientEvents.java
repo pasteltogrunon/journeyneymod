@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import net.elpasteltogrunon.journeyneymod.JourneyneyMod;
-import net.elpasteltogrunon.journeyneymod.block.custom.CableBlock;
 import net.elpasteltogrunon.journeyneymod.client.CableGeometry;
 import net.elpasteltogrunon.journeyneymod.entity.client.ModModelLayers;
 import net.elpasteltogrunon.journeyneymod.entity.client.TortoisimModel;

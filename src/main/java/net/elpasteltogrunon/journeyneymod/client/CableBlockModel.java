@@ -1,9 +1,7 @@
 package net.elpasteltogrunon.journeyneymod.client;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,13 +11,14 @@ import org.joml.Vector3f;
 import com.mojang.math.Axis;
 import com.mojang.math.Transformation;
 
+import net.elpasteltogrunon.journeyneymod.JourneyneyMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
-import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.state.BlockState;
@@ -82,7 +81,7 @@ public class CableBlockModel implements IDynamicBakedModel
     @Override
     public boolean useAmbientOcclusion() 
     {
-        return false;
+        return true;
     }
 
     @Override
@@ -106,7 +105,10 @@ public class CableBlockModel implements IDynamicBakedModel
     @Override
     public TextureAtlasSprite getParticleIcon() 
     {
-        return Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(MissingTextureAtlasSprite.getLocation());
+        TextureAtlasSprite spriteParticleCable = getTexture("block/cable_part");
+        return spriteParticleCable == null
+                ? Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply((new ResourceLocation("minecraft", "missingno")))
+                : spriteParticleCable;
     }
 
     @Override
@@ -115,5 +117,7 @@ public class CableBlockModel implements IDynamicBakedModel
         return ItemOverrides.EMPTY;
     }
 
-    
+    private static TextureAtlasSprite getTexture(String path) {
+        return Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(new ResourceLocation(JourneyneyMod.MOD_ID, path));
+    }
 }

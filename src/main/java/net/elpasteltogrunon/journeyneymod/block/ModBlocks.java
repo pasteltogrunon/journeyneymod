@@ -30,6 +30,9 @@ public class ModBlocks
     public static final RegistryObject<Block> DEEPSLATE_NABONITE_ORE = registerBlock("deepslate_nabonite_ore", 
         ()-> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_IRON_ORE), UniformInt.of(3, 6)));
 
+    public static final RegistryObject<Block> MACHINE_BLOCK = registerBlock("machine_block", 
+        ()-> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+
     public static final RegistryObject<NabonizerBlock> NABONIZER = registerBlock("nabonizer", 
         ()-> new NabonizerBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
@@ -38,7 +41,6 @@ public class ModBlocks
     
     public static final RegistryObject<CableBlock> CABLE = registerBlock("cable", 
         ()-> new CableBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_STAINED_GLASS).noCollission().sound(SoundType.WOOL).dynamicShape()));
-    
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block)
     {

@@ -11,6 +11,7 @@ import net.elpasteltogrunon.journeyneymod.item.ModCreativeModeTabs;
 import net.elpasteltogrunon.journeyneymod.item.ModItems;
 import net.elpasteltogrunon.journeyneymod.recipe.ModRecipes;
 import net.elpasteltogrunon.journeyneymod.screen.NabonizerScreen;
+import net.elpasteltogrunon.journeyneymod.screen.NabonyticGeneratorScreen;
 import net.elpasteltogrunon.journeyneymod.screen.menu.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -98,6 +99,7 @@ public class JourneyneyMod
         public static void onClientSetup(FMLClientSetupEvent event)
         {
                 MenuScreens.register(ModMenuTypes.NABONIZER_MENU.get(), NabonizerScreen::new);
+                MenuScreens.register(ModMenuTypes.NABONYTIC_GENERATOR_MENU.get(), NabonyticGeneratorScreen::new);
                 EntityRenderers.register(ModEntities.TORTOISIM.get(), TortoisimRenderer::new);
         }
     }

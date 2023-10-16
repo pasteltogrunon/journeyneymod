@@ -5,7 +5,7 @@
     "pattern": [
       "S#S",
       "#X#",
-      "S#S"
+      "STS"
     ],
     "key": {
       "#": {
@@ -16,6 +16,9 @@
       },
       "S": {
         "item": "minecraft:copper_ingot"
+      },
+      "T": {
+        "item": "minecraft:dispenser"
       }
     },
     "result": {

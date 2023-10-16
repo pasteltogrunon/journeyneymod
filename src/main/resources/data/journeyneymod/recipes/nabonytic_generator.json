@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      " X ",
+      "#Y#",
+      "STS"
+    ],
+    "key": {
+      "X": {
+        "item": "journeyneymod:nabonite_ingot"
+      },
+      "#": {
+        "item": "minecraft:copper_ingot"
+      },
+      "Y": {
+        "item": "minecraft:furnace"
+      },
+      "S": {
+        "item": "minecraft:redstone"
+      },
+      "T": {
+        "item": "journeyneymod:machine_block"
+      }
+    },
+    "result": {
+      "item": "journeyneymod:nabonytic_generator"
+    }
+  }

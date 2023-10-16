@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "S#S",
+      "#X#",
+      "S#S"
+    ],
+    "key": {
+      "X": {
+        "item": "journeyneymod:nabonite_ingot"
+      },
+      "#": {
+        "item": "journeyneymod:cable"
+      },
+      "S": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "journeyneymod:machine_block"
+    }
+  }

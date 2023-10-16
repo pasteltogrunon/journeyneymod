@@ -38,9 +38,11 @@ public class ModCreativeModeTabs
                 pOutput.accept(ModItems.NABONITE_AXE.get());
                 pOutput.accept(ModItems.NABONITE_HOE.get());
 
+                pOutput.accept(ModBlocks.MACHINE_BLOCK.get());
                 pOutput.accept(ModBlocks.NABONIZER.get());
                 pOutput.accept(ModBlocks.NABONYTIC_GENERATOR.get());
                 pOutput.accept(ModBlocks.CABLE.get());
+                pOutput.accept(ModItems.NABONIZED_COAL.get());
 
                 pOutput.accept(ModItems.TORTOISIM_SPAWN_EGG.get());
                 pOutput.accept(ModItems.TORTOISIM_SCUTE.get());

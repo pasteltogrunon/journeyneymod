@@ -18,6 +18,9 @@ public class ModMenuTypes
     public static final RegistryObject<MenuType<NabonizerMenu>> NABONIZER_MENU =
             registerMenuType(NabonizerMenu::new, "nabonizer_menu");
 
+    public static final RegistryObject<MenuType<NabonyticGeneratorMenu>> NABONYTIC_GENERATOR_MENU =
+            registerMenuType(NabonyticGeneratorMenu::new, "nabonytic_generator_menu");
+
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory,
                                                                                                   String name) {
