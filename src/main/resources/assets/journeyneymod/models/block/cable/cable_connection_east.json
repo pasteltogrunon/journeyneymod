@@ -1,0 +1,17 @@
+{
+    "textures": {
+		"0": "journeyneymod:block/cable"
+	},
+    "elements": [
+        {
+            "from": [12, 4, 4],
+            "to": [16, 12, 12],
+            "faces": {
+                "north": {"uv": [0, 0, 4, 8], "texture": "#0"},
+                "up": {"uv": [0, 0, 4, 8], "texture": "#0"},
+                "south": {"uv": [0, 0, 4, 8], "texture": "#0"},
+                "down": {"uv": [0, 0, 4, 8], "texture": "#0"}
+            }
+        }
+    ]
+}

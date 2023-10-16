@@ -40,6 +40,7 @@ public class ModCreativeModeTabs
 
                 pOutput.accept(ModBlocks.NABONIZER.get());
                 pOutput.accept(ModBlocks.NABONYTIC_GENERATOR.get());
+                pOutput.accept(ModBlocks.CABLE.get());
 
                 pOutput.accept(ModItems.TORTOISIM_SPAWN_EGG.get());
                 pOutput.accept(ModItems.TORTOISIM_SCUTE.get());

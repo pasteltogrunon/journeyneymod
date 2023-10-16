@@ -1,11 +1,8 @@
 package net.elpasteltogrunon.journeyneymod.block.entity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import net.elpasteltogrunon.journeyneymod.block.custom.CableBlock;
 import net.elpasteltogrunon.journeyneymod.util.CableShapeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,8 +10,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import static net.elpasteltogrunon.journeyneymod.block.custom.CableBlock.propFromDir;
 
 public class CableBlockEntity extends EnergyBlockEntity
 {
@@ -22,18 +20,6 @@ public class CableBlockEntity extends EnergyBlockEntity
     public boolean isMaster;
     List<EnergyBlockEntity> connectedEnergyBLocks;
     List<Direction> connections;
-
-    private static final Map<Direction, Property<Boolean>> propFromDir = new HashMap<Direction, Property<Boolean>>()
-    {
-        {
-            put(Direction.DOWN, CableBlock.DOWN);
-            put(Direction.UP, CableBlock.UP);
-            put(Direction.NORTH, CableBlock.NORTH);
-            put(Direction.SOUTH, CableBlock.SOUTH);
-            put(Direction.EAST, CableBlock.EAST);
-            put(Direction.WEST, CableBlock.WEST);
-        }
-    };
 
     public CableBlockEntity(BlockPos pos, BlockState state) 
     {
