@@ -26,6 +26,9 @@ public class ModCreativeModeTabs
                 pOutput.accept(ModItems.NABONITE_INGOT.get());
                 pOutput.accept(ModBlocks.NABONITE_ORE.get());
                 pOutput.accept(ModBlocks.DEEPSLATE_NABONITE_ORE.get());
+                pOutput.accept(ModBlocks.NABONITE_BLOCK.get());
+                pOutput.accept(ModBlocks.NABONITE_DUST_BLOCK.get());
+                
                 pOutput.accept(ModItems.EDIBLE_NABE.get());
                 pOutput.accept(ModItems.NABONYTE.get());
                 pOutput.accept(ModItems.NABONIZED_GUNPOWDER.get());
@@ -43,6 +46,7 @@ public class ModCreativeModeTabs
                 pOutput.accept(ModBlocks.NABONYTIC_GENERATOR.get());
                 pOutput.accept(ModBlocks.CABLE.get());
                 pOutput.accept(ModItems.NABONIZED_COAL.get());
+                pOutput.accept(ModItems.NABONYTIC_MIX.get());
 
                 pOutput.accept(ModItems.TORTOISIM_SPAWN_EGG.get());
                 pOutput.accept(ModItems.TORTOISIM_SCUTE.get());

@@ -22,7 +22,7 @@ public class ModItems
 {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, JourneyneyMod.MOD_ID);
 
-    public static final RegistryObject<Item> NABONITE_DUST = ITEMS.register("nabonite_dust", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> NABONITE_DUST = ITEMS.register("nabonite_dust", () -> new NabonyticFuelItem(new Item.Properties(),50));
     public static final RegistryObject<Item> NABONITE_INGOT = ITEMS.register("nabonite_ingot", () -> new Item(new Item.Properties()));   
     public static final RegistryObject<Item> NABONIZED_GUNPOWDER = ITEMS.register("nabonized_gunpowder", () -> new Item(new Item.Properties()));
 
@@ -39,8 +39,8 @@ public class ModItems
     public static final RegistryObject<Item> TORTOISIM_SPAWN_EGG = ITEMS.register("tortoisim_spawn_egg",() -> new ForgeSpawnEggItem(ModEntities.TORTOISIM, 0xd2d4cd, 0x38405c, new Item.Properties()));
     public static final RegistryObject<Item> TORTOISIM_SCUTE = ITEMS.register("tortoisim_scute", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> NABONIZED_COAL = ITEMS.register("nabonized_coal", () -> new NabonyticFuelItem(new Item.Properties(), 400));
-    public static final RegistryObject<Item> NABONYTIC_MIX = ITEMS.register("nabonytic_mix", () -> new NabonyticFuelItem(new Item.Properties(), 1600));
+    public static final RegistryObject<Item> NABONIZED_COAL = ITEMS.register("nabonized_coal", () -> new NabonyticFuelItem(new Item.Properties(), 800));
+    public static final RegistryObject<Item> NABONYTIC_MIX = ITEMS.register("nabonytic_mix", () -> new NabonyticFuelItem(new Item.Properties(), 2000));
 
     public static void register(IEventBus eventBus)
     {

@@ -1,7 +1,6 @@
 {
     "type": "minecraft:crafting_shaped",
-    "category": "misc",
-    "group": "nabonite_ingot",
+    "category": "equipment",
     "pattern": [
       "S#S",
       "#X#",

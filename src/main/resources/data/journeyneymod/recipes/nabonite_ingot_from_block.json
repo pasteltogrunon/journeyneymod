@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "group": "journeyneymod:nabonite_ingot",
+    "ingredients": [
+      {
+        "item": "journeyneymod:nabonite_block"
+      }
+    ],
+    "result": {
+      "item": "journeyneymod:nabonite_ingot",
+      "count": 9
+    }
+  }

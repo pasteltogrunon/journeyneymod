@@ -1,7 +1,6 @@
 {
     "type": "minecraft:crafting_shaped",
     "category": "misc",
-    "group": "journeyneymod:nabonite_ingot",
     "pattern": [
       " # ",
       "#X#",
@@ -12,10 +11,10 @@
         "item": "journeyneymod:nabonite_dust"
       },
       "X": {
-        "item": "minecraft:copper_ingot"
+        "item": "minecraft:coal"
       }
     },
     "result": {
-      "item": "journeyneymod:nabonite_ingot"
+      "item": "journeyneymod:nabonized_coal"
     }
   }

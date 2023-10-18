@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+      {
+        "item": "journeyneymod:nabonized_coal"
+      },
+      {
+        "item": "journeyneymod:nabonized_gunpowder"
+      },
+      {
+        "item": "minecraft:redstone"
+      }
+    ],
+    "result": {
+      "item": "journeyneymod:nabonytic_mix"
+    }
+  }

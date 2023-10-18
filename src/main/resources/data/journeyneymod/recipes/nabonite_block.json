@@ -3,19 +3,15 @@
     "category": "misc",
     "pattern": [
       "###",
-      "XXX",
+      "###",
       "###"
     ],
     "key": {
       "#": {
-        "item": "minecraft:string"
-      },
-      "X": {
         "item": "journeyneymod:nabonite_ingot"
       }
     },
     "result": {
-      "item": "journeyneymod:cable",
-      "count": 6
+      "item": "journeyneymod:nabonite_block"
     }
   }
