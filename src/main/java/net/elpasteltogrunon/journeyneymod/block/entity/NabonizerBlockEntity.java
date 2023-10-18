@@ -162,18 +162,20 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
     {
         if(level.isClientSide()) return;
 
+        //If there is recipe and there is enough energy
         int time = hasRecipe(pEntity);
-
         if(time > 0)
         {
-            if(!pEntity.lit)
-                level.setBlock(pos, state.setValue(NabonizerBlock.LIT, true), 3);
-            pEntity.lit = true;
-
-            pEntity.extractEnergy(CONSUMING_RATE);
-
-            if(pEntity.energy > 0)
+            if(pEntity.energy >= CONSUMING_RATE)
             {
+                pEntity.extractEnergy(CONSUMING_RATE);
+    
+                if(!pEntity.lit)
+                {
+                    level.setBlock(pos, state.setValue(NabonizerBlock.LIT, true), 3);
+                    pEntity.lit = true;
+                }
+    
                 pEntity.maxProgress = time;
                 pEntity.progress++;
                 
@@ -182,13 +184,21 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
                     craftItem(pEntity);
                 }
             }
+            else if(pEntity.lit)
+            {
+                level.setBlock(pos, state.setValue(NabonizerBlock.LIT, false), 3);
+                pEntity.lit = false;
+            }
+
         }
         else
         {
             if(pEntity.lit)
+            {
                 level.setBlock(pos, state.setValue(NabonizerBlock.LIT, false), 3);
-            pEntity.lit = false;
-            pEntity.resetProgress();
+                pEntity.lit = false;
+                pEntity.resetProgress();
+            }
         }
 
         setChanged(level, pos, state);
@@ -201,6 +211,7 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
         this.progress = 0;
     }
 
+    //Returns the recipe process time if there is any, and zero if there is not any recipe
     private static int hasRecipe(NabonizerBlockEntity entity)
     {
         Level level = entity.level;
