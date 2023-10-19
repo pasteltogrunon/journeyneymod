@@ -1,9 +1,5 @@
 package net.elpasteltogrunon.journeyneymod.item.custom;
 
-import java.util.Set;
-
-import com.google.common.collect.ImmutableSet;
-
 import net.elpasteltogrunon.journeyneymod.enchantment.ModEnchantments;
 import net.elpasteltogrunon.journeyneymod.item.ModItems;
 import net.minecraft.core.BlockPos;
@@ -13,9 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
-
 
 public class NabonyteItem extends Item
 {

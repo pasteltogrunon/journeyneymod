@@ -3,7 +3,6 @@ package net.elpasteltogrunon.journeyneymod.item;
 import net.elpasteltogrunon.journeyneymod.JourneyneyMod;
 import net.elpasteltogrunon.journeyneymod.block.ModBlocks;
 import net.elpasteltogrunon.journeyneymod.enchantment.ModEnchantments;
-import net.elpasteltogrunon.journeyneymod.enchantment.NaboniacEnchantment;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
