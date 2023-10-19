@@ -16,6 +16,7 @@ public class EnergyBlockEntity extends BlockEntity
     protected int maxEnergy = 1000;
     private int maxTransfer = 100;
     public boolean isReceiver;
+    public boolean isEmitter;
 
     public EnergyBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) 
     {

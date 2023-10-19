@@ -50,6 +50,7 @@ public class NabonyticGeneratorBlockEntity extends EnergyBlockEntity implements 
         super(ModBlockEntities.NABONYTIC_GENERATOR.get(), pos, state);
 
         this.isReceiver = false;
+        this.isEmitter = true;
         this.maxEnergy = 5000;
         this.energy = 0;
         this.data = new ContainerData() 

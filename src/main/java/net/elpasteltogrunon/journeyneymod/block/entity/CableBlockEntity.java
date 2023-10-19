@@ -46,7 +46,7 @@ public class CableBlockEntity extends EnergyBlockEntity
                 {
                     pCableEntity.transferEnergy(pCableEntity.getMaxTransfer(), connection);
                 }
-                else
+                else if(connection.isEmitter)
                 {
                     pCableEntity.suckEnergy(connection.getMaxTransfer(), connection);
                 }

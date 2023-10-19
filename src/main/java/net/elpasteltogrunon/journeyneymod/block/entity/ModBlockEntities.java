@@ -24,6 +24,10 @@ public class ModBlockEntities
     public static final RegistryObject<BlockEntityType<CableBlockEntity>> CABLE = 
         BLOCK_ENTITIES.register("cable", ()-> BlockEntityType.Builder.of(
             CableBlockEntity:: new, ModBlocks.CABLE.get()).build(null));
+    
+    public static final RegistryObject<BlockEntityType<BatteryBlockEntity>> BATTERY = 
+        BLOCK_ENTITIES.register("battery", ()-> BlockEntityType.Builder.of(
+            BatteryBlockEntity:: new, ModBlocks.NABONITE_BATTERY.get()).build(null));
 
     public static void register(IEventBus eventBus)
     {

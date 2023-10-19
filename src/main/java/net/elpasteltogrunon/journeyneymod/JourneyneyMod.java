@@ -3,6 +3,7 @@ package net.elpasteltogrunon.journeyneymod;
 //import com.mojang.logging.LogUtils;
 
 import net.elpasteltogrunon.journeyneymod.block.ModBlocks;
+import net.elpasteltogrunon.journeyneymod.block.custom.BatteryBlock;
 import net.elpasteltogrunon.journeyneymod.block.entity.ModBlockEntities;
 import net.elpasteltogrunon.journeyneymod.enchantment.ModEnchantments;
 import net.elpasteltogrunon.journeyneymod.entity.ModEntities;
@@ -10,6 +11,7 @@ import net.elpasteltogrunon.journeyneymod.entity.client.TortoisimRenderer;
 import net.elpasteltogrunon.journeyneymod.item.ModCreativeModeTabs;
 import net.elpasteltogrunon.journeyneymod.item.ModItems;
 import net.elpasteltogrunon.journeyneymod.recipe.ModRecipes;
+import net.elpasteltogrunon.journeyneymod.screen.BatteryScreen;
 import net.elpasteltogrunon.journeyneymod.screen.NabonizerScreen;
 import net.elpasteltogrunon.journeyneymod.screen.NabonyticGeneratorScreen;
 import net.elpasteltogrunon.journeyneymod.screen.menu.ModMenuTypes;
@@ -100,6 +102,7 @@ public class JourneyneyMod
         {
                 MenuScreens.register(ModMenuTypes.NABONIZER_MENU.get(), NabonizerScreen::new);
                 MenuScreens.register(ModMenuTypes.NABONYTIC_GENERATOR_MENU.get(), NabonyticGeneratorScreen::new);
+                MenuScreens.register(ModMenuTypes.BATTERY_MENU.get(), BatteryScreen::new);
                 EntityRenderers.register(ModEntities.TORTOISIM.get(), TortoisimRenderer::new);
         }
     }

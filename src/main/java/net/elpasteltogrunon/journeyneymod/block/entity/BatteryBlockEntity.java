@@ -1,10 +1,9 @@
-package net.elpasteltogrunon.journeyneymod.block.entity.battery;
+package net.elpasteltogrunon.journeyneymod.block.entity;
 
 import javax.annotation.Nullable;
 
-import net.elpasteltogrunon.journeyneymod.block.entity.CableBlockEntity;
-import net.elpasteltogrunon.journeyneymod.block.entity.EnergyBlockEntity;
-import net.elpasteltogrunon.journeyneymod.block.entity.NabonyticGeneratorBlockEntity;
+import net.elpasteltogrunon.journeyneymod.block.custom.BatteryBlock;
+import net.elpasteltogrunon.journeyneymod.screen.menu.BatteryMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -14,7 +13,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class BatteryBlockEntity extends EnergyBlockEntity implements MenuProvider
@@ -22,13 +20,16 @@ public class BatteryBlockEntity extends EnergyBlockEntity implements MenuProvide
     protected final ContainerData data;
     protected String displayName;
 
-    public BatteryBlockEntity(BlockEntityType<? extends BatteryBlockEntity> type, BlockPos pos, BlockState state, int maxEnergy, String displayName) 
+    public BatteryBlockEntity(BlockPos pos, BlockState state) 
     {
-        super(type, pos, state);
+        super(ModBlockEntities.BATTERY.get(), pos, state);
         
-        this.displayName = displayName;
-        this.isReceiver = false;
-        this.maxEnergy = maxEnergy;
+        BatteryBlock block = (BatteryBlock) getBlockState().getBlock();
+
+        this.displayName = block.getDisplayName();
+        this.isReceiver = true;
+        this.isEmitter = true;
+        this.maxEnergy = block.getMaxEnergy();
         this.energy = 0;
         this.data = new ContainerData() 
         {
@@ -61,8 +62,7 @@ public class BatteryBlockEntity extends EnergyBlockEntity implements MenuProvide
     @Nullable
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player)
     {
-        return null;
-        //return new NabonyticGeneratorMenu(id, inventory, this, this.data);
+        return new BatteryMenu(id, inventory, this, this.data);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class BatteryBlockEntity extends EnergyBlockEntity implements MenuProvide
         return Component.literal(displayName);
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, NabonyticGeneratorBlockEntity pEntity) 
+    public static void tick(Level level, BlockPos pos, BlockState state, BatteryBlockEntity pEntity) 
     {
         if(level.isClientSide()) return;
 

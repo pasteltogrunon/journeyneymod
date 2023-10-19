@@ -58,6 +58,7 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
         this.energy = 0;
         this.maxEnergy = 2000;
         this.isReceiver = true;
+        this.isEmitter = false;
         this.data = new ContainerData() 
         {
             @Override

@@ -12,22 +12,25 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModMenuTypes 
 {
-    public static final DeferredRegister<MenuType<?>> MENUS =
-            DeferredRegister.create(ForgeRegistries.MENU_TYPES, JourneyneyMod.MOD_ID);
+        public static final DeferredRegister<MenuType<?>> MENUS =
+                DeferredRegister.create(ForgeRegistries.MENU_TYPES, JourneyneyMod.MOD_ID);
 
-    public static final RegistryObject<MenuType<NabonizerMenu>> NABONIZER_MENU =
-            registerMenuType(NabonizerMenu::new, "nabonizer_menu");
+        public static final RegistryObject<MenuType<NabonizerMenu>> NABONIZER_MENU =
+                registerMenuType(NabonizerMenu::new, "nabonizer_menu");
 
-    public static final RegistryObject<MenuType<NabonyticGeneratorMenu>> NABONYTIC_GENERATOR_MENU =
-            registerMenuType(NabonyticGeneratorMenu::new, "nabonytic_generator_menu");
+        public static final RegistryObject<MenuType<NabonyticGeneratorMenu>> NABONYTIC_GENERATOR_MENU =
+                registerMenuType(NabonyticGeneratorMenu::new, "nabonytic_generator_menu");
+
+                public static final RegistryObject<MenuType<BatteryMenu>> BATTERY_MENU =
+                registerMenuType(BatteryMenu::new, "battery_menu");
 
 
-    private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory,
-                                                                                                  String name) {
-        return MENUS.register(name, () -> IForgeMenuType.create(factory));
-    }
+        private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory,
+                                                                                                        String name) {
+                return MENUS.register(name, () -> IForgeMenuType.create(factory));
+        }
 
-    public static void register(IEventBus eventBus) {
-        MENUS.register(eventBus);
-    }
+        public static void register(IEventBus eventBus) {
+                MENUS.register(eventBus);
+        }
 }

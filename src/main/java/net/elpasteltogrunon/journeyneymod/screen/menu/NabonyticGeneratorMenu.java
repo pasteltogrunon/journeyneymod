@@ -58,7 +58,7 @@ public class NabonyticGeneratorMenu extends AbstractContainerMenu
         int burnTime = this.data.get(0);
         int burnTimeIndicatorSize = 15;
 
-        return burnTime != 0 ? Math.min(burnTime * burnTimeIndicatorSize / 1600, burnTimeIndicatorSize) : 0;
+        return burnTime != 0 ? Math.min(burnTime * burnTimeIndicatorSize / 800, burnTimeIndicatorSize) : 0;
     }
 
     public int getScaledEnergy()
