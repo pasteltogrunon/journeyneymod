@@ -197,8 +197,8 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
             {
                 level.setBlock(pos, state.setValue(NabonizerBlock.LIT, false), 3);
                 pEntity.lit = false;
-                pEntity.resetProgress();
             }
+            pEntity.resetProgress();
         }
 
         setChanged(level, pos, state);
