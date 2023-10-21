@@ -18,10 +18,13 @@ public class ModMenuTypes
         public static final RegistryObject<MenuType<NabonizerMenu>> NABONIZER_MENU =
                 registerMenuType(NabonizerMenu::new, "nabonizer_menu");
 
+        public static final RegistryObject<MenuType<NabonyticFurnaceMenu>> NABONYTIC_FURNACE_MENU =
+                registerMenuType(NabonyticFurnaceMenu::new, "nabonytic_furnace_menu");
+
         public static final RegistryObject<MenuType<NabonyticGeneratorMenu>> NABONYTIC_GENERATOR_MENU =
                 registerMenuType(NabonyticGeneratorMenu::new, "nabonytic_generator_menu");
 
-                public static final RegistryObject<MenuType<BatteryMenu>> BATTERY_MENU =
+        public static final RegistryObject<MenuType<BatteryMenu>> BATTERY_MENU =
                 registerMenuType(BatteryMenu::new, "battery_menu");
 
 

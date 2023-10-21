@@ -6,6 +6,7 @@ import net.elpasteltogrunon.journeyneymod.JourneyneyMod;
 import net.elpasteltogrunon.journeyneymod.block.custom.BatteryBlock;
 import net.elpasteltogrunon.journeyneymod.block.custom.CableBlock;
 import net.elpasteltogrunon.journeyneymod.block.custom.NabonizerBlock;
+import net.elpasteltogrunon.journeyneymod.block.custom.NabonyticFurnaceBlock;
 import net.elpasteltogrunon.journeyneymod.block.custom.NabonyticGeneratorBlock;
 import net.elpasteltogrunon.journeyneymod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -32,6 +33,7 @@ public class ModBlocks
 
     public static final RegistryObject<Block> MACHINE_BLOCK = registerBlock("machine_block", ()-> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistryObject<NabonizerBlock> NABONIZER = registerBlock("nabonizer", ()-> new NabonizerBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+        public static final RegistryObject<NabonyticFurnaceBlock> NABONYTIC_FURNACE = registerBlock("nabonytic_furnace", ()-> new NabonyticFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistryObject<NabonyticGeneratorBlock> NABONYTIC_GENERATOR = registerBlock("nabonytic_generator", ()-> new NabonyticGeneratorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistryObject<CableBlock> CABLE = registerBlock("cable", ()-> new CableBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_STAINED_GLASS).noCollission().sound(SoundType.WOOL).dynamicShape()));
     public static final RegistryObject<BatteryBlock> NABONITE_BATTERY = registerBlock("nabonite_battery", ()-> new BatteryBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK), 40000, "Nabonite Battery"));

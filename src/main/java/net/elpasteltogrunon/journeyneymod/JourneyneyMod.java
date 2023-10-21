@@ -13,6 +13,7 @@ import net.elpasteltogrunon.journeyneymod.item.ModItems;
 import net.elpasteltogrunon.journeyneymod.recipe.ModRecipes;
 import net.elpasteltogrunon.journeyneymod.screen.BatteryScreen;
 import net.elpasteltogrunon.journeyneymod.screen.NabonizerScreen;
+import net.elpasteltogrunon.journeyneymod.screen.NabonyticFurnaceScreen;
 import net.elpasteltogrunon.journeyneymod.screen.NabonyticGeneratorScreen;
 import net.elpasteltogrunon.journeyneymod.screen.menu.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -101,6 +102,7 @@ public class JourneyneyMod
         public static void onClientSetup(FMLClientSetupEvent event)
         {
                 MenuScreens.register(ModMenuTypes.NABONIZER_MENU.get(), NabonizerScreen::new);
+                MenuScreens.register(ModMenuTypes.NABONYTIC_FURNACE_MENU.get(), NabonyticFurnaceScreen::new);
                 MenuScreens.register(ModMenuTypes.NABONYTIC_GENERATOR_MENU.get(), NabonyticGeneratorScreen::new);
                 MenuScreens.register(ModMenuTypes.BATTERY_MENU.get(), BatteryScreen::new);
                 EntityRenderers.register(ModEntities.TORTOISIM.get(), TortoisimRenderer::new);

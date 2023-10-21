@@ -17,6 +17,10 @@ public class ModBlockEntities
         BLOCK_ENTITIES.register("nabonizer", ()-> BlockEntityType.Builder.of(
             NabonizerBlockEntity:: new, ModBlocks.NABONIZER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<NabonyticFurnaceBlockEntity>> NABONYTIC_FURNACE = 
+        BLOCK_ENTITIES.register("nabonytic_furnace", ()-> BlockEntityType.Builder.of(
+            NabonyticFurnaceBlockEntity:: new, ModBlocks.NABONYTIC_FURNACE.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<NabonyticGeneratorBlockEntity>> NABONYTIC_GENERATOR = 
         BLOCK_ENTITIES.register("nabonytic_generator", ()-> BlockEntityType.Builder.of(
             NabonyticGeneratorBlockEntity:: new, ModBlocks.NABONYTIC_GENERATOR.get()).build(null));
