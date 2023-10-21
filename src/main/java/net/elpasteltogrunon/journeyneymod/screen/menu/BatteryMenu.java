@@ -45,7 +45,7 @@ public class BatteryMenu extends AbstractContainerMenu
     {
         int energy = this.data.get(0);
         int maxEnergy = this.data.get(1); 
-        int energyBarSize = 64; 
+        int energyBarSize = 101; 
 
         return maxEnergy != 0 && energy != 0 ? energy * energyBarSize / maxEnergy : 0;
     }

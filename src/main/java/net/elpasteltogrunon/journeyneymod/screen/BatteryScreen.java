@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 public class BatteryScreen extends AbstractContainerScreen<BatteryMenu>
 {
         private static final ResourceLocation TEXTURE =
-            new ResourceLocation(JourneyneyMod.MOD_ID,"textures/gui/nabonytic_generator_gui.png");
+            new ResourceLocation(JourneyneyMod.MOD_ID,"textures/gui/battery_gui.png");
 
     public BatteryScreen(BatteryMenu menu, Inventory inv, Component comp)
     {
@@ -54,12 +54,12 @@ public class BatteryScreen extends AbstractContainerScreen<BatteryMenu>
 
     private void renderEnergyBar(GuiGraphics graphics, int x, int y) 
     {
-        graphics.blit(TEXTURE, x + 156, y + 13, 187, 0, 8, menu.getScaledEnergy());
+        graphics.blit(TEXTURE, x + 48, y + 31, 0, 168, menu.getScaledEnergy(), 12);
     }
 
     private void renderEnergyAreaTooltips(GuiGraphics graphics, int pMouseX, int pMouseY, int x, int y)
      {
-        if(isMouseAboveArea(pMouseX, pMouseY, x, y, 156, 13, 8, 64)) 
+        if(isMouseAboveArea(pMouseX, pMouseY, x, y, 48, 31, 101, 12)) 
         {
             graphics.renderComponentTooltip(this.font, menu.getEnergyTooltips(), pMouseX, pMouseY);
         }

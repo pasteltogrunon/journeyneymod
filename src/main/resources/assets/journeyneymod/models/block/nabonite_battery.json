@@ -1,0 +1,8 @@
+{
+    "parent" : "minecraft:block/cube_bottom_top",
+    "textures" : {
+      "top" : "journeyneymod:block/nabonite_battery_top",
+      "side" : "journeyneymod:block/nabonite_battery_side",
+      "bottom" : "journeyneymod:block/machine_block"
+    }
+  }

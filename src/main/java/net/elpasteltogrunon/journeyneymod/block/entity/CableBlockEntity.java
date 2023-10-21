@@ -40,15 +40,19 @@ public class CableBlockEntity extends EnergyBlockEntity
 
         if(pCableEntity.isMaster)
         {
+            List<EnergyBlockEntity> alreadyChecked = new ArrayList<>();
             for (EnergyBlockEntity connection : pCableEntity.connectedEnergyBLocks) 
             {
+                if(connection.isEmitter)
+                {
+                    if(pCableEntity.suckEnergy(connection.getMaxTransfer(), connection) > 0)
+                        alreadyChecked.add(connection);
+                }
+
                 if(connection.isReceiver)
                 {
-                    pCableEntity.transferEnergy(pCableEntity.getMaxTransfer(), connection);
-                }
-                else if(connection.isEmitter)
-                {
-                    pCableEntity.suckEnergy(connection.getMaxTransfer(), connection);
+                    if(!alreadyChecked.contains(connection))
+                        pCableEntity.transferEnergy(pCableEntity.getMaxTransfer(), connection);
                 }
             }
         }
