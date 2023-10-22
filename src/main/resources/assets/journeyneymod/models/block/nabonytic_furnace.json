@@ -1,0 +1,8 @@
+{
+  "parent" : "minecraft:block/cube_bottom_top",
+  "textures" : {
+    "top" : "journeyneymod:block/machine_block",
+    "side" : "journeyneymod:block/nabonytic_furnace",
+    "bottom" : "journeyneymod:block/machine_block"
+  }
+}

@@ -3,7 +3,6 @@ package net.elpasteltogrunon.journeyneymod;
 //import com.mojang.logging.LogUtils;
 
 import net.elpasteltogrunon.journeyneymod.block.ModBlocks;
-import net.elpasteltogrunon.journeyneymod.block.custom.BatteryBlock;
 import net.elpasteltogrunon.journeyneymod.block.entity.ModBlockEntities;
 import net.elpasteltogrunon.journeyneymod.enchantment.ModEnchantments;
 import net.elpasteltogrunon.journeyneymod.entity.ModEntities;

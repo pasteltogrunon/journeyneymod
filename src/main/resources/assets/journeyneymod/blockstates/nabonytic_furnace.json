@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "lit=false": {
+            "model":"journeyneymod:block/nabonytic_furnace"
+        },
+        "lit=true": {
+            "model":"journeyneymod:block/nabonytic_furnace_lit"
+        }
+    }
+}

@@ -20,7 +20,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
@@ -33,7 +32,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class NabonyticFurnaceBlockEntity extends EnergyBlockEntity implements MenuProvider
 {
-private static final int CONSUMING_RATE = 5;
+    private static final int CONSUMING_RATE = 2;
 
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(3)
@@ -51,7 +50,7 @@ private static final int CONSUMING_RATE = 5;
 
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 200;
+    private int maxProgress = 150;
     private boolean lit;
 
     public NabonyticFurnaceBlockEntity(BlockPos pos, BlockState state) {
@@ -208,7 +207,7 @@ private static final int CONSUMING_RATE = 5;
 
     private void resetProgress()
     {
-        this.maxProgress = 100;
+        this.maxProgress = 150;
         this.progress = 0;
     }
 

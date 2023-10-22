@@ -42,6 +42,7 @@ public class ModCreativeModeTabs
 
                 pOutput.accept(ModBlocks.MACHINE_BLOCK.get());
                 pOutput.accept(ModBlocks.NABONIZER.get());
+                pOutput.accept(ModBlocks.NABONYTIC_FURNACE.get());
                 pOutput.accept(ModBlocks.NABONYTIC_GENERATOR.get());
                 pOutput.accept(ModBlocks.NABONITE_BATTERY.get());
                 pOutput.accept(ModBlocks.CABLE.get());

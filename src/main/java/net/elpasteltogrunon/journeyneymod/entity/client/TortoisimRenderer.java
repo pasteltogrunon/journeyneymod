@@ -11,6 +11,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public class TortoisimRenderer extends MobRenderer<TortoisimEntity, TortoisimModel<TortoisimEntity>>
 {
+    private static final ResourceLocation TEXTURE  = new ResourceLocation(JourneyneyMod.MOD_ID, "textures/entity/tortoisim.png");
+
 
     public TortoisimRenderer(EntityRendererProvider.Context pContext) 
     {
@@ -18,14 +20,16 @@ public class TortoisimRenderer extends MobRenderer<TortoisimEntity, TortoisimMod
     }
 
     @Override
-    public ResourceLocation getTextureLocation(TortoisimEntity pEntity) {
-        return new ResourceLocation(JourneyneyMod.MOD_ID, "textures/entity/tortoisim.png");
+    public ResourceLocation getTextureLocation(TortoisimEntity pEntity) 
+    {
+        return TEXTURE;
     }
 
     @Override
     public void render(TortoisimEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack,
                        MultiBufferSource pBuffer, int pPackedLight) {
-        if(pEntity.isBaby()) {
+        if(pEntity.isBaby()) 
+        {
             pMatrixStack.scale(0.5f, 0.5f, 0.5f);
         }
 

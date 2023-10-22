@@ -175,7 +175,7 @@ public class NabonyticGeneratorBlockEntity extends EnergyBlockEntity implements 
         }
         else
         {
-            if(inventory.getItem(0).getItem() instanceof NabonyticFuelItem fuelItem)
+            if(pEntity.getEnergy() != pEntity.getMaxEnergy() && inventory.getItem(0).getItem() instanceof NabonyticFuelItem fuelItem)
             {
                 pEntity.burnTimeLeft = fuelItem.getNabonyticBurnTime();
                 pEntity.itemHandler.extractItem(0, 1, false);
