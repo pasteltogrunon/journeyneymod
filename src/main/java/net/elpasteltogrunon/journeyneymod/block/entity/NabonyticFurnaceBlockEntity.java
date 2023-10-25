@@ -246,11 +246,13 @@ public class NabonyticFurnaceBlockEntity extends EnergyBlockEntity implements Me
         }
     }
 
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack stack) {
-        return inventory.getItem(2).getItem() == stack.getItem() || inventory.getItem(3).isEmpty();
+    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack stack) 
+    {
+        return inventory.getItem(2).getItem() == stack.getItem() || inventory.getItem(2).isEmpty();
     }
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        return inventory.getItem(2).getMaxStackSize() > inventory.getItem(3).getCount();
+    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) 
+    {
+        return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount();
     }
 }
