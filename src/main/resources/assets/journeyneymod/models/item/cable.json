@@ -1,6 +1,6 @@
 {
-    "parent": "minecraft:item/handheld",
-    "textures": {
-      "layer0": "journeyneymod:item/cable"
-    }
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "journeyneymod:item/cable"
   }
+}

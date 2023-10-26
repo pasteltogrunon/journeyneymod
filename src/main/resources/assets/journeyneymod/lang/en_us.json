@@ -8,13 +8,13 @@
     "item.journeyneymod.tortoisim_scute":"Tortoisim Scute",
     "item.journeyneymod.nabonized_coal":"Nabonized Coal",
     "item.journeyneymod.nabonytic_mix":"Nabonytic Mix",
-
+    
     "item.journeyneymod.nabonite_sword":"Nabonite Sword",
     "item.journeyneymod.nabonite_shovel":"Nabonite Shovel",
     "item.journeyneymod.nabonite_pickaxe":"Nabonite Pickaxe",
     "item.journeyneymod.nabonite_axe":"Nabonite Axe",
     "item.journeyneymod.nabonite_hoe":"Nabonite Hoe",
-
+    
     "block.journeyneymod.nabonite_ore":"Nabonite Ore",
     "block.journeyneymod.deepslate_nabonite_ore":"Deepslate Nabonite Ore",
     "block.journeyneymod.nabonite_dust_block":"Nabonite Dust Block",
@@ -25,6 +25,7 @@
     "block.journeyneymod.nabonytic_generator":"Nabonytic Generator",
     "block.journeyneymod.nabonite_battery":"Nabonite Battery",
     "block.journeyneymod.cable":"Cable",
+    "block.journeyneymod.tortoisim_egg":"Tortoisim Egg",
 
     "enchantment.journeyneymod.naboniac":"Naboniac",
     "enchantment.journeyneymod.nabonytic_rest":"Nabonytic Rest",

@@ -2,8 +2,12 @@ package net.elpasteltogrunon.journeyneymod.entity.custom;
 
 import javax.annotation.Nullable;
 
+import net.elpasteltogrunon.journeyneymod.block.ModBlocks;
 import net.elpasteltogrunon.journeyneymod.entity.ModEntities;
+import net.elpasteltogrunon.journeyneymod.entity.ai.EggBreedGoal;
+import net.elpasteltogrunon.journeyneymod.entity.ai.LayEggGoal;
 import net.elpasteltogrunon.journeyneymod.item.ModItems;
+import net.elpasteltogrunon.journeyneymod.util.EggLayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
@@ -24,17 +28,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class TortoisimEntity extends Animal
+public class TortoisimEntity extends Animal implements EggLayer
 {
+    public final AnimationState idleAnimationState = new AnimationState();
+    private int idleAnimationTimeout = 0;
+    private boolean hasEgg = false;
 
     public TortoisimEntity(EntityType<? extends Animal> pEntityType, Level pLevel) 
     {
         super(pEntityType, pLevel);
     }
-
-    public final AnimationState idleAnimationState = new AnimationState();
-    private int idleAnimationTimeout = 0;
 
     @Override  
     public void tick()
@@ -82,7 +88,8 @@ public class TortoisimEntity extends Animal
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.5));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 2));
+        this.goalSelector.addGoal(2, new EggBreedGoal(this, 2));
+        this.goalSelector.addGoal(2, new LayEggGoal(this, 100, 1));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, Ingredient.of(ModItems.EDIBLE_NABE.get()), false));
 
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
@@ -114,5 +121,23 @@ public class TortoisimEntity extends Animal
     public boolean isFood(ItemStack pStack)
     {
         return pStack.is(ModItems.EDIBLE_NABE.get());
+    }
+
+    @Override
+    public boolean hasEgg() 
+    {
+        return this.hasEgg;
+    }
+
+    @Override
+    public void setHasEgg(boolean hasEgg) 
+    {
+        this.hasEgg = hasEgg;
+    }
+
+    @Override
+    public BlockState getEggBlockState() 
+    {
+        return ModBlocks.TORTOSIM_EGG.get().defaultBlockState();
     }
 }

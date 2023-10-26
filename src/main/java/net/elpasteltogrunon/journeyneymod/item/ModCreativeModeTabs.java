@@ -51,6 +51,7 @@ public class ModCreativeModeTabs
 
                 pOutput.accept(ModItems.TORTOISIM_SPAWN_EGG.get());
                 pOutput.accept(ModItems.TORTOISIM_SCUTE.get());
+                pOutput.accept(ModBlocks.TORTOSIM_EGG.get());
 
             })
             .build());
