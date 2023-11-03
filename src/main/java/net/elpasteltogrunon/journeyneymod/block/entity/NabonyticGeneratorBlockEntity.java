@@ -184,6 +184,6 @@ public class NabonyticGeneratorBlockEntity extends EnergyBlockEntity implements 
         }
 
 
-        addToNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
+        //addToNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
     }
 }

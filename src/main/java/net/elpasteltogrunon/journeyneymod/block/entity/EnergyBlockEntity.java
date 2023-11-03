@@ -68,7 +68,7 @@ public class EnergyBlockEntity extends BlockEntity
         return this.receiveEnergy(target.extractEnergy(requestedEnergy));
     }
 
-    protected static void addToNeighborCables(Level level, BlockPos pos, BlockState state, EnergyBlockEntity pEnergyBlock)
+    public static void addToNeighborCables(Level level, BlockPos pos, BlockState state, EnergyBlockEntity pEnergyBlock)
     {
         for(Direction dir : Direction.values())
         {

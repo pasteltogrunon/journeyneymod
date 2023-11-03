@@ -48,6 +48,7 @@ public class ModCreativeModeTabs
                 pOutput.accept(ModBlocks.CABLE.get());
                 pOutput.accept(ModItems.NABONIZED_COAL.get());
                 pOutput.accept(ModItems.NABONYTIC_MIX.get());
+                pOutput.accept(ModItems.RE_BATTERY.get());
 
                 pOutput.accept(ModItems.TORTOISIM_SPAWN_EGG.get());
                 pOutput.accept(ModItems.TORTOISIM_SCUTE.get());

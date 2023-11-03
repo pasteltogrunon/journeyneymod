@@ -83,7 +83,7 @@ public class BatteryBlockEntity extends EnergyBlockEntity implements MenuProvide
             pEntity.transferEnergy(pEntity.getMaxTransfer(), receiver);
         }
 
-        addToNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
+        //addToNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
     }
 }
 

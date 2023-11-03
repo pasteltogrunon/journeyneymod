@@ -52,6 +52,20 @@ public class NabonizerBlock extends BaseEntityBlock
     {
         return RenderShape.MODEL;
     }
+
+    @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) 
+    {
+        if (pState.getBlock() != pNewState.getBlock()) 
+        {
+            if (pLevel.getBlockEntity(pPos) instanceof EnergyBlockEntity pEntity) 
+            {
+                EnergyBlockEntity.addToNeighborCables(pLevel, pPos, pState, pEntity);
+            }
+        }
+
+        super.onPlace(pState, pLevel, pPos, pNewState, pIsMoving);
+    }
     
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) 

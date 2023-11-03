@@ -203,7 +203,7 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
         }
 
         setChanged(level, pos, state);
-        addToNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
+        //addToNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
     }
 
     private void resetProgress()

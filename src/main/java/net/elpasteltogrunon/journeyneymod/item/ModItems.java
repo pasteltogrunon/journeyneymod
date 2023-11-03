@@ -2,6 +2,7 @@ package net.elpasteltogrunon.journeyneymod.item;
 
 import net.elpasteltogrunon.journeyneymod.JourneyneyMod;
 import net.elpasteltogrunon.journeyneymod.entity.ModEntities;
+import net.elpasteltogrunon.journeyneymod.item.custom.EnergyItem;
 import net.elpasteltogrunon.journeyneymod.item.custom.NabonyteItem;
 import net.elpasteltogrunon.journeyneymod.item.custom.NabonyticFuelItem;
 import net.minecraft.world.item.AxeItem;
@@ -39,6 +40,8 @@ public class ModItems
 
     public static final RegistryObject<Item> NABONIZED_COAL = ITEMS.register("nabonized_coal", () -> new NabonyticFuelItem(new Item.Properties(), 400));
     public static final RegistryObject<Item> NABONYTIC_MIX = ITEMS.register("nabonytic_mix", () -> new NabonyticFuelItem(new Item.Properties(), 1000));
+
+     public static final RegistryObject<Item> RE_BATTERY = ITEMS.register("re_battery", () -> new EnergyItem(new Item.Properties().stacksTo(1), 200));
 
     public static void register(IEventBus eventBus)
     {

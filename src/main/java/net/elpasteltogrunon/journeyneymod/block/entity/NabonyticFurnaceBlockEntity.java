@@ -202,7 +202,7 @@ public class NabonyticFurnaceBlockEntity extends EnergyBlockEntity implements Me
         }
 
         setChanged(level, pos, state);
-        addToNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
+        //addToNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
     }
 
     private void resetProgress()
