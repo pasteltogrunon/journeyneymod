@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.annotation.Nullable;
 
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 
 import net.elpasteltogrunon.journeyneymod.block.custom.NabonizerBlock;
@@ -34,7 +35,7 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
     private static final int CONSUMING_RATE = 5;
 
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(4)
+    private final ItemStackHandler inputItemHandler = new ItemStackHandler(3)
     {
         @Override
         protected void onContentsChanged(int slot)
@@ -44,6 +45,18 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
         }
     };
 
+    private final ItemStackHandler outputItemHandler = new ItemStackHandler(1)
+    {
+        @Override
+        protected void onContentsChanged(int slot)
+        {
+            super.onContentsChanged(slot);
+            setChanged();
+        }
+    };
+
+    private LazyOptional<IItemHandler> lazyInputItemHandler = LazyOptional.empty();
+    private LazyOptional<IItemHandler> lazyOutputItemHandler = LazyOptional.empty();
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
 
@@ -107,7 +120,8 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
     {
         super.load(nbt);
 
-        this.itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        this.inputItemHandler.deserializeNBT(nbt.getCompound("input"));
+        this.outputItemHandler.deserializeNBT(nbt.getCompound("output"));
         this.progress = nbt.getInt("progress");
         this.maxProgress = nbt.getInt("max_progress");
     }
@@ -117,7 +131,8 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
     {
         super.saveAdditional(nbt);
 
-        nbt.put("inventory", this.itemHandler.serializeNBT());
+        nbt.put("input", this.inputItemHandler.serializeNBT());
+        nbt.put("output", this.outputItemHandler.serializeNBT());
         nbt.putInt("progress", this.progress);
         nbt.putInt("max_progress", this.maxProgress);
 
@@ -128,7 +143,18 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
     {
         if(cap == ForgeCapabilities.ITEM_HANDLER)
         {
-            return this.lazyItemHandler.cast();
+            if(side == Direction.DOWN)
+            {
+                return this.lazyOutputItemHandler.cast();
+            }
+            else if (side!= null)
+            {
+                return this.lazyInputItemHandler.cast();
+            }
+            else
+            {
+                return this.lazyItemHandler.cast();
+            }
         }
         return super.getCapability(cap);
 
@@ -138,23 +164,27 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
     public void onLoad()
     {
         super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> this.itemHandler);
+        lazyInputItemHandler = LazyOptional.of(() -> this.inputItemHandler);
+        lazyOutputItemHandler = LazyOptional.of(()-> this.outputItemHandler);
+        lazyItemHandler = LazyOptional.of(() -> new CombinedInvWrapper(this.inputItemHandler, this.outputItemHandler));
     }
 
     @Override
     public void invalidateCaps()
     {
         super.invalidateCaps();
-        this.lazyItemHandler.invalidate();
+        this.lazyInputItemHandler.invalidate();
+        this.lazyOutputItemHandler.invalidate();
     }
 
     public void drops() 
     {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++) 
+        SimpleContainer inventory = new SimpleContainer(inputItemHandler.getSlots() + outputItemHandler.getSlots());
+        for (int i = 0; i < inputItemHandler.getSlots(); i++)
         {
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
+            inventory.setItem(i, inputItemHandler.getStackInSlot(i));
         }
+        inventory.setItem(3, outputItemHandler.getStackInSlot(3));
 
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
@@ -190,7 +220,7 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
                 level.setBlock(pos, state.setValue(NabonizerBlock.LIT, false), 3);
                 pEntity.lit = false;
             }
-
+            setChanged(level, pos, state);
         }
         else
         {
@@ -198,11 +228,10 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
             {
                 level.setBlock(pos, state.setValue(NabonizerBlock.LIT, false), 3);
                 pEntity.lit = false;
+                setChanged(level, pos, state);
             }
             pEntity.resetProgress();
         }
-
-        setChanged(level, pos, state);
         //addToNeighborCables(level, pos, state, (EnergyBlockEntity) pEntity);
     }
 
@@ -216,10 +245,11 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
     private static int hasRecipe(NabonizerBlockEntity entity)
     {
         Level level = entity.level;
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
+        SimpleContainer inventory = new SimpleContainer(entity.inputItemHandler.getSlots() + entity.outputItemHandler.getSlots());
+        for (int i = 0; i < entity.inputItemHandler.getSlots(); i++) {
+            inventory.setItem(i, entity.inputItemHandler.getStackInSlot(i));
         }
+        inventory.setItem(3, entity.outputItemHandler.getStackInSlot(0));
 
         Optional<NabonizerRecipe> recipe = level.getRecipeManager()
                 .getRecipeFor(NabonizerRecipe.Type.INSTANCE, inventory, level);
@@ -232,21 +262,22 @@ public class NabonizerBlockEntity extends EnergyBlockEntity implements MenuProvi
     private static void craftItem(NabonizerBlockEntity entity)
     {
         Level level = entity.level;
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
+        SimpleContainer inventory = new SimpleContainer(entity.inputItemHandler.getSlots() + entity.outputItemHandler.getSlots());
+        for (int i = 0; i < entity.inputItemHandler.getSlots(); i++) {
+            inventory.setItem(i, entity.inputItemHandler.getStackInSlot(i));
         }
+        inventory.setItem(3, entity.outputItemHandler.getStackInSlot(0));
 
         Optional<NabonizerRecipe> recipe = level.getRecipeManager()
                 .getRecipeFor(NabonizerRecipe.Type.INSTANCE, inventory, level);
         
         if(hasRecipe(entity) > 0) 
         {
-            entity.itemHandler.extractItem(0, 1, false);
-            entity.itemHandler.extractItem(1, 1, false);
-            entity.itemHandler.extractItem(2, 1, false);
-            entity.itemHandler.setStackInSlot(3, new ItemStack(recipe.get().getResultItem(level.registryAccess()).getItem(),
-                    entity.itemHandler.getStackInSlot(3).getCount() + 1));
+            entity.inputItemHandler.extractItem(0, 1, false);
+            entity.inputItemHandler.extractItem(1, 1, false);
+            entity.inputItemHandler.extractItem(2, 1, false);
+            entity.outputItemHandler.setStackInSlot(0, new ItemStack(recipe.get().getResultItem(level.registryAccess()).getItem(),
+                    entity.outputItemHandler.getStackInSlot(0).getCount() + 1));
 
             entity.resetProgress();
         }

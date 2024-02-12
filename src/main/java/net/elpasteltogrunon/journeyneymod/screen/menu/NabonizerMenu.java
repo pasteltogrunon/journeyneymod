@@ -53,6 +53,8 @@ public class NabonizerMenu extends AbstractContainerMenu
         addDataSlots(data);
     }
 
+
+
     public boolean isCrafting() 
     {
         return data.get(0) > 0;
