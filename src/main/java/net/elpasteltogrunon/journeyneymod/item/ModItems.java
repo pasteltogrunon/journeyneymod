@@ -5,6 +5,7 @@ import net.elpasteltogrunon.journeyneymod.entity.ModEntities;
 import net.elpasteltogrunon.journeyneymod.item.custom.EnergyItem;
 import net.elpasteltogrunon.journeyneymod.item.custom.NabonyteItem;
 import net.elpasteltogrunon.journeyneymod.item.custom.NabonyticFuelItem;
+import net.elpasteltogrunon.journeyneymod.item.custom.RockShattererItem;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
@@ -28,6 +29,7 @@ public class ModItems
     public static final RegistryObject<Item> EDIBLE_NABE = ITEMS.register("edible_nabe", () -> new Item(new Item.Properties().food(ModFoods.EDIBLE_NABE)));
 
     public static final RegistryObject<Item> NABONYTE = ITEMS.register("nabonyte", () -> new NabonyteItem(new Item.Properties().durability(50)));
+    public static final RegistryObject<Item> ROCK_SHATTERER = ITEMS.register("rock_shatterer", ()-> new RockShattererItem(new Item.Properties().durability(63)));
 
     public static final RegistryObject<Item> NABONITE_SWORD = ITEMS.register("nabonite_sword", () -> new SwordItem(ModToolTiers.NABONITE, 3, -2f, new Item.Properties()));
     public static final RegistryObject<Item> NABONITE_SHOVEL = ITEMS.register("nabonite_shovel", () -> new ShovelItem(ModToolTiers.NABONITE, 1, -2.5f, new Item.Properties()));
@@ -41,6 +43,8 @@ public class ModItems
     public static final RegistryObject<Item> NABONIZED_COAL = ITEMS.register("nabonized_coal", () -> new NabonyticFuelItem(new Item.Properties(), 400));
     public static final RegistryObject<Item> NABONYTIC_MIX = ITEMS.register("nabonytic_mix", () -> new NabonyticFuelItem(new Item.Properties(), 1000));
 
+
+    public static  final RegistryObject<Item> ELECTROMAGNETIC_FREQUENTIAL_TOROID = ITEMS.register("electromagnetic_frequential_toroid", ()-> new Item(new Item.Properties()));
      public static final RegistryObject<Item> RE_BATTERY = ITEMS.register("re_battery", () -> new EnergyItem(new Item.Properties().stacksTo(1), 200));
 
     public static void register(IEventBus eventBus)

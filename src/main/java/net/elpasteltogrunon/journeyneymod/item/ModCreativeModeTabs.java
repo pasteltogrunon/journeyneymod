@@ -30,6 +30,7 @@ public class ModCreativeModeTabs
                 
                 pOutput.accept(ModItems.EDIBLE_NABE.get());
                 pOutput.accept(ModItems.NABONYTE.get());
+                pOutput.accept(ModItems.ROCK_SHATTERER.get());
                 pOutput.accept(ModItems.NABONIZED_GUNPOWDER.get());
                 pOutput.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.NABONIAC.get(), 3)));
                 pOutput.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(ModEnchantments.NABONYTIC_REST.get(), 5)));
@@ -49,6 +50,7 @@ public class ModCreativeModeTabs
                 pOutput.accept(ModItems.NABONIZED_COAL.get());
                 pOutput.accept(ModItems.NABONYTIC_MIX.get());
                 pOutput.accept(ModItems.RE_BATTERY.get());
+                pOutput.accept(ModItems.ELECTROMAGNETIC_FREQUENTIAL_TOROID.get());
 
                 pOutput.accept(ModItems.TORTOISIM_SPAWN_EGG.get());
                 pOutput.accept(ModItems.TORTOISIM_SCUTE.get());

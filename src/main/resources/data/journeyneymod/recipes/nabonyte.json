@@ -4,20 +4,23 @@
     "pattern": [
       "S#S",
       "#X#",
-      "STS"
+      "ETE"
     ],
     "key": {
       "#": {
         "item": "journeyneymod:nabonite_ingot"
       },
       "X": {
-        "item": "minecraft:diamond_pickaxe"
+        "item": "journeyneymod:rock_shatterer"
       },
       "S": {
         "item": "minecraft:copper_ingot"
       },
       "T": {
         "item": "minecraft:dispenser"
+      },
+      "E": {
+        "item": "journeyneymod:electromagnetic_frequential_toroid"
       }
     },
     "result": {

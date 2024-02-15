@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "equipment",
+    "pattern": [
+      " E ",
+      " E ",
+      "XTX"
+    ],
+    "key": {
+      "X": {
+        "item": "journeyneymod:nabonite_ingot"
+      },
+      "T": {
+        "item": "minecraft:furnace"
+      },
+      "E": {
+        "item": "journeyneymod:electromagnetic_frequential_toroid"
+      }
+    },
+    "result": {
+      "item": "journeyneymod:rock_shatterer"
+    }
+  }
