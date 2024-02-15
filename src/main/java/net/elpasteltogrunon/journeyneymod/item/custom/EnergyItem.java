@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.elpasteltogrunon.journeyneymod.block.entity.EnergyBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class EnergyItem extends Item
 {
@@ -28,18 +30,22 @@ public class EnergyItem extends Item
 
     public InteractionResult useOn(UseOnContext pContext)
     {
+        BlockEntity clickedEntity = pContext.getLevel().getBlockEntity(pContext.getClickedPos());
         if(!pContext.getLevel().isClientSide())
         {
-            if(pContext.getPlayer().isSecondaryUseActive())
-            {
-                extractEnergy(5, pContext.getItemInHand());
-                return InteractionResult.SUCCESS;
+            if (clickedEntity instanceof  EnergyBlockEntity) {
+                transferEnergy(50, (EnergyBlockEntity) clickedEntity, pContext.getItemInHand());
+            }else {
+                if(pContext.getPlayer().isSecondaryUseActive()) {
+                    extractEnergy(5, pContext.getItemInHand());
+                }
+                else {
+                    receiveEnergy(5, pContext.getItemInHand());
+                }
+
             }
-            else
-            {
-                receiveEnergy(5, pContext.getItemInHand());
-                return InteractionResult.SUCCESS;
-            }
+            return InteractionResult.SUCCESS;
+
         }
         return InteractionResult.FAIL;
     }
@@ -125,17 +131,17 @@ public class EnergyItem extends Item
         return clampedAmount;
     }
 
-    /*public int transferEnergy(int amount, EnergyBlockEntity target)
+    public int transferEnergy(int amount, EnergyBlockEntity target, ItemStack pStack)
     {
-        int transferredEnergy = Math.min(amount, this.getEnergy());
-        return this.extractEnergy(target.receiveEnergy(transferredEnergy));
+        int transferredEnergy = Math.min(amount, this.getEnergy(pStack));
+        return this.extractEnergy(target.receiveEnergy(transferredEnergy), pStack);
     }
 
-    public int suckEnergy(int amount, EnergyBlockEntity target)
+    public int suckEnergy(int amount, EnergyBlockEntity target, ItemStack pStack)
     {
-        int requestedEnergy = Math.min(this.getMaxEnergy()-this.getEnergy(), amount);
-        return this.receiveEnergy(target.extractEnergy(requestedEnergy));
-    }*/
+        int requestedEnergy = Math.min(this.getMaxEnergy(pStack)-this.getEnergy(pStack), amount);
+        return this.receiveEnergy(target.extractEnergy(requestedEnergy), pStack);
+    }
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltips, TooltipFlag flag) 

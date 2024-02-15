@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.annotation.Nullable;
 
+import net.elpasteltogrunon.journeyneymod.block.custom.NabonizerBlock;
 import org.jetbrains.annotations.NotNull;
 
 import net.elpasteltogrunon.journeyneymod.block.custom.NabonyticFurnaceBlock;
@@ -93,5 +94,12 @@ public class NabonyticFurnaceBlockEntity extends MachineBlockEntity implements M
     private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) 
     {
         return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount();
+    }
+
+    @Override
+    protected void setLit(Level level, BlockPos pos, BlockState state, boolean flag)
+    {
+        level.setBlock(pos, state.setValue(NabonyticFurnaceBlock.LIT, flag), 3);
+        lit = flag;
     }
 }
