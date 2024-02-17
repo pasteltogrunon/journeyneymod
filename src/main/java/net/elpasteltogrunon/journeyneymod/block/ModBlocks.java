@@ -13,10 +13,7 @@ import net.elpasteltogrunon.journeyneymod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DropExperienceBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -32,6 +29,12 @@ public class ModBlocks
     public static final RegistryObject<Block> NABONITE_DUST_BLOCK = registerBlock("nabonite_dust_block", ()-> new Block(BlockBehaviour.Properties.copy(Blocks.SAND)));
     public static final RegistryObject<Block> NABONITE_BLOCK = registerBlock("nabonite_block", ()-> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistryObject<TortoisimEggBlock> TORTOSIM_EGG = registerBlock("tortoisim_egg", ()-> new TortoisimEggBlock(BlockBehaviour.Properties.copy(Blocks.TURTLE_EGG)));
+    public static  final RegistryObject<Block> ANDESITE_GRAVEL = registerBlock("andesite_gravel", ()-> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
+    public static  final RegistryObject<Block> DIORITE_GRAVEL = registerBlock("diorite_gravel", ()-> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
+    public static  final RegistryObject<Block> GRANITE_GRAVEL = registerBlock("granite_gravel", ()-> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
+    public static  final RegistryObject<Block> TUFF_GRAVEL = registerBlock("tuff_gravel", ()-> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
+    public static  final RegistryObject<Block> DEEPSLATE_GRAVEL = registerBlock("deepslate_gravel", ()-> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL)));
+
 
     public static final RegistryObject<Block> MACHINE_BLOCK = registerBlock("machine_block", ()-> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistryObject<NabonizerBlock> NABONIZER = registerBlock("nabonizer", ()-> new NabonizerBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));

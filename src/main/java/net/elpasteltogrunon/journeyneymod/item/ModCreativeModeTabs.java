@@ -27,7 +27,18 @@ public class ModCreativeModeTabs
                 pOutput.accept(ModBlocks.DEEPSLATE_NABONITE_ORE.get());
                 pOutput.accept(ModBlocks.NABONITE_BLOCK.get());
                 pOutput.accept(ModBlocks.NABONITE_DUST_BLOCK.get());
-                
+
+                pOutput.accept(ModBlocks.DIORITE_GRAVEL.get());
+                pOutput.accept(ModBlocks.ANDESITE_GRAVEL.get());
+                pOutput.accept(ModBlocks.GRANITE_GRAVEL.get());
+                pOutput.accept(ModBlocks.TUFF_GRAVEL.get());
+                pOutput.accept(ModBlocks.DEEPSLATE_GRAVEL.get());
+
+                pOutput.accept(ModItems.ALBITE.get());
+                pOutput.accept(ModItems.ANORTHITE.get());
+                pOutput.accept(ModItems.ORTHOCLASE.get());
+                pOutput.accept(ModItems.MICA.get());
+
                 pOutput.accept(ModItems.EDIBLE_NABE.get());
                 pOutput.accept(ModItems.NABONYTE.get());
                 pOutput.accept(ModItems.ROCK_SHATTERER.get());
