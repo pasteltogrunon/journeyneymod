@@ -1,5 +1,10 @@
 {
     "values": [
-        "journeyneymod:nabonite_dust_block"
+        "journeyneymod:nabonite_dust_block",
+        "journeyneymod:andesite_gravel",
+        "journeyneymod:diorite_gravel",
+        "journeyneymod:granite_gravel",
+        "journeyneymod:tuff_gravel",
+        "journeyneymod:deepslate_gravel"
     ]
 }
