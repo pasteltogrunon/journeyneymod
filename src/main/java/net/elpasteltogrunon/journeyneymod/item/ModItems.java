@@ -39,8 +39,8 @@ public class ModItems
 
     public static final RegistryObject<Item> TORTOISIM_SPAWN_EGG = ITEMS.register("tortoisim_spawn_egg",() -> new ForgeSpawnEggItem(ModEntities.TORTOISIM, 0xd2d4cd, 0x38405c, new Item.Properties()));
     public static final RegistryObject<Item> TORTOISIM_SCUTE = ITEMS.register("tortoisim_scute", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> ALBITE = ITEMS.register("albite", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> ANORTHITE = ITEMS.register("anorthite", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ALBITE = ITEMS.register("albite", () -> new Item(new Item.Properties().food(ModFoods.ARTRITHE)));
+    public static final RegistryObject<Item> ANORTHITE = ITEMS.register("anorthite", () -> new Item(new Item.Properties().food(ModFoods.ARTRITHE)));
     public static final RegistryObject<Item> ORTHOCLASE = ITEMS.register("orthoclase", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MICA = ITEMS.register("mica", () -> new Item(new Item.Properties()));
 

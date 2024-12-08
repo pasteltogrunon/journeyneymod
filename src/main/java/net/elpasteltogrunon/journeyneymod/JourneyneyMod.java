@@ -4,6 +4,7 @@ package net.elpasteltogrunon.journeyneymod;
 
 import net.elpasteltogrunon.journeyneymod.block.ModBlocks;
 import net.elpasteltogrunon.journeyneymod.block.entity.ModBlockEntities;
+import net.elpasteltogrunon.journeyneymod.effects.ModEffects;
 import net.elpasteltogrunon.journeyneymod.enchantment.ModEnchantments;
 import net.elpasteltogrunon.journeyneymod.entity.ModEntities;
 import net.elpasteltogrunon.journeyneymod.entity.client.TortoisimRenderer;
@@ -50,6 +51,7 @@ public class JourneyneyMod
         ModRecipes.register(modEventBus);
         ModEnchantments.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModEffects.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
